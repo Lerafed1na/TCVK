@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    func convertState(state: UIApplication.State) -> String {
+    func convertState(_ state: UIApplication.State) -> String {
         switch state {
         case .active:
             return "ACTIVE"
@@ -58,8 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func lerasFunctionForAplicationState(_ state: UIApplication.State, inFunction name: String = #function) {
-        let state = convertState(state: UIApplication.shared.applicationState)
+    func lerasFunctionForAplicationState(_ applistaionState: UIApplication.State, inFunction name: String = #function) {
+        let state = convertState(applistaionState)
         if state != prevState {
             ChatLog.printLog("Application moved from \(prevState) to \(state): \(name)")
         } else {
