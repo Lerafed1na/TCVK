@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     }
     
     func printStateName(string: String = #function) {
-        print("\(string)")
+        ChatLog.printLog("\(string)")
     }
 
 }

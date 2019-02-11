@@ -13,85 +13,59 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var prevState = "Not running"
+    var prevState = "NOT RUNNING"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Called if everything is fine with initialization
-       let state = convertState(state: UIApplication.shared.applicationState)
-       if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+       lerasFunctionForAplicationState(UIApplication.shared.applicationState)
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Switching to another application or pressing the "HOME" button
-        let state = convertState(state: UIApplication.shared.applicationState)
-        if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Transition to the background task execution state.
-        let state = convertState(state: UIApplication.shared.applicationState)
-        if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // The application has switched to the Foreground Inactive state. It was called from a minimized state and was in the background state.
-        let state = convertState(state: UIApplication.shared.applicationState)
-        if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // The application is in the Active state.
-        let state = convertState(state: UIApplication.shared.applicationState)
-        if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // When you close the application. Called only when the application is running. It is not called from the Suspended state.
-        let state = convertState(state: UIApplication.shared.applicationState)
-        if state != prevState {
-            print("Application moved from \(prevState) to \(state): \(#function)")
-        } else {
-            print("Application is still in \(state): \(#function)")
-        }
-        prevState = state
+        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
         self.saveContext()
     }
     
     func convertState(state: UIApplication.State) -> String {
         switch state {
         case .active:
-            return "active"
+            return "ACTIVE"
         case .inactive:
-            return "inactive"
+            return "INACTIVE"
         case .background:
-            return "background"
+            return "BACKGROUND"
         }
+    }
+    
+    func lerasFunctionForAplicationState(_ state: UIApplication.State, inFunction name: String = #function) {
+        let state = convertState(state: UIApplication.shared.applicationState)
+        if state != prevState {
+            ChatLog.printLog("Application moved from \(prevState) to \(state): \(name)")
+        } else {
+            ChatLog.printLog("Application is still in \(state): \(name)")
+        }
+        prevState = state
     }
 
     // MARK: - Core Data stack

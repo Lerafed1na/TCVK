@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */; };
 		FB8A8A3B220C3B0E00B67C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */; };
 		FB8A8A3D220C3B0E00B67C31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */; };
 		FB8A8A40220C3B0E00B67C31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A3E220C3B0E00B67C31 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
 		FB8A8A37220C3B0E00B67C31 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		FB8A8A39220C3B0E00B67C31 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */,
 				FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */,
 				FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */,
 				FB8A8A3E220C3B0E00B67C31 /* Main.storyboard */,
@@ -140,6 +143,7 @@
 			files = (
 				FB8A8A3D220C3B0E00B67C31 /* ViewController.swift in Sources */,
 				FB8A8A3B220C3B0E00B67C31 /* AppDelegate.swift in Sources */,
+				FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */,
 				FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +301,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.koren.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -316,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.koren.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
