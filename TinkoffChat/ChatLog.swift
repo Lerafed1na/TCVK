@@ -2,8 +2,8 @@
 //  ChatLog.swift
 //  TinkoffChat
 //
-//  Created by Lera Korenevich on 11/02/2019.
-//  Copyright © 2019 Lera Korenevich. All rights reserved.
+//  Created by Valeriia Korenevich on 11/02/2019.
+//  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
 import Foundation

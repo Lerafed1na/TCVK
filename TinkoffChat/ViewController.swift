@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  TinkoffChat
 //
-//  Created by Lera Korenevich on 07/02/2019.
-//  Copyright © 2019 Lera Korenevich. All rights reserved.
+//  Created by Valeriia Korenevich on 07/02/2019.
+//  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
 import UIKit
