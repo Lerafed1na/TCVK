@@ -14,6 +14,7 @@
 		FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A41220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld */; };
 		FB8A8A45220C3B0E00B67C31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */; };
 		FB8A8A48220C3B0E00B67C31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A46220C3B0E00B67C31 /* LaunchScreen.storyboard */; };
+		FBED87DE22171CCE001F18D6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBED87DD22171CCE001F18D6 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB8A8A47220C3B0E00B67C31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB8A8A49220C3B0E00B67C31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBED87DD22171CCE001F18D6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */,
 				FB8A8A3E220C3B0E00B67C31 /* Main.storyboard */,
 				FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */,
+				FBED87DD22171CCE001F18D6 /* Media.xcassets */,
 				FB8A8A46220C3B0E00B67C31 /* LaunchScreen.storyboard */,
 				FB8A8A49220C3B0E00B67C31 /* Info.plist */,
 				FB8A8A41220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld */,
@@ -130,6 +133,7 @@
 			files = (
 				FB8A8A48220C3B0E00B67C31 /* LaunchScreen.storyboard in Resources */,
 				FB8A8A45220C3B0E00B67C31 /* Assets.xcassets in Resources */,
+				FBED87DE22171CCE001F18D6 /* Media.xcassets in Resources */,
 				FB8A8A40220C3B0E00B67C31 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
