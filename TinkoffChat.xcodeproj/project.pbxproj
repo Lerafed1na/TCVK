@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB5389422217263400093230 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5389412217263400093230 /* ProfileViewController.swift */; };
 		FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */; };
 		FB8A8A3B220C3B0E00B67C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */; };
-		FB8A8A3D220C3B0E00B67C31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */; };
 		FB8A8A40220C3B0E00B67C31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A3E220C3B0E00B67C31 /* Main.storyboard */; };
 		FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A41220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld */; };
 		FB8A8A45220C3B0E00B67C31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */; };
@@ -18,10 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB5389412217263400093230 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
 		FB8A8A37220C3B0E00B67C31 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FB8A8A3F220C3B0E00B67C31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB8A8A42220C3B0E00B67C31 /* TinkoffChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TinkoffChat.xcdatamodel; sourceTree = "<group>"; };
 		FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,8 +62,8 @@
 			children = (
 				FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */,
 				FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */,
-				FB8A8A3C220C3B0E00B67C31 /* ViewController.swift */,
 				FB8A8A3E220C3B0E00B67C31 /* Main.storyboard */,
+				FB5389412217263400093230 /* ProfileViewController.swift */,
 				FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */,
 				FBED87DD22171CCE001F18D6 /* Media.xcassets */,
 				FB8A8A46220C3B0E00B67C31 /* LaunchScreen.storyboard */,
@@ -145,8 +145,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB8A8A3D220C3B0E00B67C31 /* ViewController.swift in Sources */,
 				FB8A8A3B220C3B0E00B67C31 /* AppDelegate.swift in Sources */,
+				FB5389422217263400093230 /* ProfileViewController.swift in Sources */,
 				FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */,
 				FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */,
 			);
