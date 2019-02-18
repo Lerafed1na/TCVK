@@ -32,7 +32,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <connections>
-                                    <action selector="setButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d9u-ib-3Ke"/>
+                                    <action selector="setButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nww-3l-W2P"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Валерия Кореневич" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zJ-3I-EuJ" userLabel="User Name Text Field">
@@ -96,7 +96,7 @@
                         <outlet property="editButton" destination="4K5-XE-M58" id="AY2-So-5TI"/>
                         <outlet property="iconOfSetProfilePhotoButton" destination="XPJ-oa-Wh7" id="cF3-Dd-XfG"/>
                         <outlet property="placeholderProfilePhoto" destination="hE4-ug-GHB" id="fmh-aj-2J9"/>
-                        <outlet property="setProfilePhotoButton" destination="qyq-nM-mMG" id="QbD-XB-2ze"/>
+                        <outlet property="setProfilePhotoButton" destination="qyq-nM-mMG" id="d2H-a8-kz5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
