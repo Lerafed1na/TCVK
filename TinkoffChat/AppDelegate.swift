@@ -17,33 +17,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Called if everything is fine with initialization
-       lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+       printAplicationState(UIApplication.shared.applicationState)
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Switching to another application or pressing the "HOME" button
-        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+        printAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Transition to the background task execution state.
-        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+        printAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // The application has switched to the Foreground Inactive state. It was called from a minimized state and was in the background state.
-        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+        printAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // The application is in the Active state.
-        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+        printAplicationState(UIApplication.shared.applicationState)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // When you close the application. Called only when the application is running. It is not called from the Suspended state.
-        lerasFunctionForAplicationState(UIApplication.shared.applicationState)
+        printAplicationState(UIApplication.shared.applicationState)
         self.saveContext()
     }
     
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func lerasFunctionForAplicationState(_ applistaionState: UIApplication.State, inFunction name: String = #function) {
+    func printAplicationState(_ applistaionState: UIApplication.State, inFunction name: String = #function) {
         let state = convertState(applistaionState)
         if state != prevState {
             ChatLog.printLog("Application moved from \(prevState) to \(state): \(name)")

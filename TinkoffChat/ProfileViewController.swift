@@ -87,11 +87,12 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController:  UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func configureView() {
-        let cornerRadius = placeholderProfilePhoto.bounds.height / 6
-        placeholderProfilePhoto.layer.cornerRadius = cornerRadius
+        setProfilePhotoButton.layer.cornerRadius = setProfilePhotoButton.frame.size.height / 2
+        setProfilePhotoButton.layer.backgroundColor = #colorLiteral(red: 0.2470588235, green: 0.4705882353, blue: 0.9411764706, alpha: 1)
+        
+        placeholderProfilePhoto.layer.cornerRadius = setProfilePhotoButton.frame.size.height / 2
         placeholderProfilePhoto.clipsToBounds = true
-        setProfilePhotoButton.layer.cornerRadius = cornerRadius
-        setProfilePhotoButton.backgroundColor = #colorLiteral(red: 0.2470588235, green: 0.4705882353, blue: 0.9411764706, alpha: 1)
+        
         editButton.layer.cornerRadius = editButton.bounds.height / 5
         editButton.layer.borderWidth = 1.5
         editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
