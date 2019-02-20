@@ -102,19 +102,23 @@ extension ProfileViewController:  UINavigationControllerDelegate, UIImagePickerC
     @IBAction func setButtonAction(_ sender: Any) {
         let changeProfileImageAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let takePhotoAction = UIAlertAction(title: "Take Photo", style: .cancel) { (action) in
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .camera
-            self.imagePicker.cameraCaptureMode = .photo
-            self.imagePicker.modalPresentationStyle = .fullScreen
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.cameraCaptureMode = .photo
+                self.imagePicker.modalPresentationStyle = .fullScreen
             
-            self.present(self.imagePicker, animated: true, completion: nil)
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
         }
         changeProfileImageAlertController.addAction(takePhotoAction)
         
         let libraryPhotoAction = UIAlertAction(title: "From Gallery", style: .default) { (action) in
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .photoLibrary
-            self.present(self.imagePicker, animated: true, completion: nil)
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .photoLibrary
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
         }
         changeProfileImageAlertController.addAction(libraryPhotoAction)
         
