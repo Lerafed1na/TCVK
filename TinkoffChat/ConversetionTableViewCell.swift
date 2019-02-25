@@ -38,7 +38,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
     var message: String? {
         didSet {
             if message == nil {
-                lastMessageLabel.font = UIFont(name: "Futura-Bold", size: 14)
+                lastMessageLabel.font = UIFont(name: "Helvetica-Bold", size: 14)
                 lastMessageLabel.text = "No message yet"
             } else {
                 lastMessageLabel.font = UIFont(name: "Futura-Medium", size: 14)
