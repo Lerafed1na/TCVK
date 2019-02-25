@@ -61,7 +61,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
     }
     var online: Bool = true {
         didSet {
-            self.backgroundColor = online ? #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self.backgroundColor = online ? #colorLiteral(red: 0.9557935596, green: 0.9555761218, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
     var hasUnreadMessages: Bool = true {
