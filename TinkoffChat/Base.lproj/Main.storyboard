@@ -177,11 +177,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="nnh-VQ-LuK">
                         <barButtonItem key="rightBarButtonItem" title="Item" style="done" id="6ow-aV-ctd">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ech-TF-kuk">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ech-TF-kuk">
                                 <rect key="frame" x="14" y="0.0" width="290" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="profile"/>
                                 <connections>
+                                    <action selector="userProfileButton:" destination="LWl-9b-HWG" eventType="touchUpInside" id="kuz-D2-jeH"/>
                                     <segue destination="BYZ-38-t0r" kind="presentation" identifier="Show Profile" id="7qw-79-vtd"/>
                                 </connections>
                             </button>
@@ -189,9 +190,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="conversetionListTableView" destination="WN5-XF-f7M" id="UUX-Bq-RI2"/>
+                        <outlet property="userProfileButton" destination="ech-TF-kuk" id="64g-fU-pkk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7GI-ly-iH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LWl-9b-HWG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1421.25" y="-681.33802816901414"/>
         </scene>

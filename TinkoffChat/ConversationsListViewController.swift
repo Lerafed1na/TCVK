@@ -12,6 +12,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
 
   
     @IBOutlet var conversetionListTableView: UITableView!
+    @IBOutlet var userProfileButton: UIButton!
     
     var conversationsArray = [Int: [ConversationModel]]()
     
@@ -24,6 +25,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
+        userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
         
         conversationsArray[0] = DataSource.conversetions.filter({$0.online == true})
         conversationsArray[1] = DataSource.conversetions.filter({$0.online == false})
