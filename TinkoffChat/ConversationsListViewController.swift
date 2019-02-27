@@ -23,11 +23,18 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.conversetionListTableView.dataSource = self
         self.conversetionListTableView.delegate = self
         
+        sortConversationsArray()
+        
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
         userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    func sortConversationsArray() {
         
         conversationsArray[0] = DataSource.conversetions.filter({$0.online == true})
         conversationsArray[1] = DataSource.conversetions.filter({$0.online == false})
@@ -50,7 +57,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             }
             return true
         })
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - Navigation
@@ -87,6 +93,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         cell.date = cellData?.date ?? Date()
         cell.hasUnreadMessages = (cellData?.hasUnreadMessages)!
         cell.online = (cellData?.online)!
+        cell.userImage = cellData?.userImage
         return cell
     }
     

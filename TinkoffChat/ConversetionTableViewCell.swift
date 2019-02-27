@@ -14,13 +14,15 @@ protocol ConversationsCellConfiguration : class {
     var date : Date? {get set}
     var online : Bool {get set}
     var hasUnreadMessages: Bool {get set}
+    var userImage: String? {get set}
 }
 
 class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration {
     
-    @IBOutlet weak var nameOfUserLabel: UILabel!
-    @IBOutlet weak var timeOfLastMessageLabel: UILabel!
-    @IBOutlet weak var lastMessageLabel: UILabel!
+    @IBOutlet var userImageView: UIImageView!
+    @IBOutlet var nameOfUserLabel: UILabel!
+    @IBOutlet var timeOfLastMessageLabel: UILabel!
+    @IBOutlet var lastMessageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -73,6 +75,14 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
                     lastMessageLabel.font = UIFont.init(name: "Futura-Medium", size: 14)
                 lastMessageLabel.textColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             }
+        }
+    }
+    
+    var userImage: String? {
+        didSet {
+            userImageView.image = UIImage(named: "placeholder-user")
+            userImageView.layer.cornerRadius = userImageView.frame.size.height / 2
+            userImageView.clipsToBounds = true
         }
     }
 }
