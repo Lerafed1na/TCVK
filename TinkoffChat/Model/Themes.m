@@ -40,21 +40,25 @@
 }
 
 - (UIColor *)getTheme2Color {
+    NSLog(@"Theme2 color is taken!");
 	return _theme2;
 }
 
 - (void)setTheme2Color:(UIColor *)theme2 {
 	if (_theme2 != theme2) {
+        NSLog(@"Theme2 color - %@ is changed to color - %@", _theme2, theme2);
 		_theme2 = [theme2 copy];
 	}
 }
 
 - (UIColor *)getTheme3Color {
+    NSLog(@"Theme3 color is taken!");
 	return _theme3;
 }
 
 - (void)setTheme3Color:(UIColor *)theme3 {
 	if (_theme3 != theme3) {
+        NSLog(@"Theme3 color - %@ is changed to color - %@", _theme3, theme3);
 		_theme3 = [theme3 copy];
 	}
 }

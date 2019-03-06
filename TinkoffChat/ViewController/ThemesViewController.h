@@ -17,6 +17,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *thirdButton;
 @property (nonatomic, weak) IBOutlet UIButton *randomButton;
 
-@property (nonatomic, strong, getter=getModel, setter=setModel:) Themes *model;
-@property (nonatomic, assign, getter=getDelegate, setter=setDelegate:) id<ThemesViewControllerDelegate> delegate;
+@property (nonatomic, strong) Themes *model;
+@property (nonatomic, assign) id<ThemesViewControllerDelegate> delegate;
 @end

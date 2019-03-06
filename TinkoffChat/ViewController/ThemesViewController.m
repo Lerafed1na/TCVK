@@ -12,6 +12,7 @@
 @end
 
 @implementation ThemesViewController
+@synthesize delegate = _delegate, model = _model;
 
 - (void)dealloc {
 	[_model release];
@@ -50,6 +51,7 @@
     }
 }
 
+
 -(Themes*)model {
     return _model;
 }
@@ -57,6 +59,7 @@
 -(void)setModel:(Themes *)model {
     if (_model != model) {
         [_model release];
+        _model = [model retain];
     }
 }
 
@@ -66,7 +69,7 @@
 
 -(void)setDelegate:(id<ThemesViewControllerDelegate>)delegate {
     if (_delegate != delegate) {
-    _delegate = delegate;
+        _delegate = delegate;
     }
 }
 
