@@ -167,7 +167,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
 extension ConversationsListViewController: ThemesViewControllerDelegate {
 	func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
 		logThemeChanging(selectedTheme: selectedTheme)
-        
-//        controller.get
+ 
 	}
 }

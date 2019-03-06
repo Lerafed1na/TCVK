@@ -17,13 +17,13 @@
 		FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A41220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld */; };
 		FB8A8A45220C3B0E00B67C31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */; };
 		FB8A8A48220C3B0E00B67C31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB8A8A46220C3B0E00B67C31 /* LaunchScreen.storyboard */; };
+		FB954A14223051DB00041AF8 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB52793022283EA000D23839 /* ThemesViewController.m */; };
 		FBB5844122205F640052535E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB5844022205F640052535E /* Model.swift */; };
 		FBE3E4032222F9FD00725C33 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE3E4022222F9FD00725C33 /* ConversationViewController.swift */; };
 		FBE3E40522231C8A00725C33 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE3E40422231C8A00725C33 /* ChatTableViewCell.swift */; };
 		FBED87DE22171CCE001F18D6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBED87DD22171CCE001F18D6 /* Media.xcassets */; };
 		FBF09071222E96D300BB208D /* ThemesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF09070222E96D300BB208D /* ThemesStruct.swift */; };
 		FBF0907A222EE48C00BB208D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF09079222EE48C00BB208D /* UserDefaults.swift */; };
-		FBF09081223009FE00BB208D /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB52793022283EA000D23839 /* ThemesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,7 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBF09081223009FE00BB208D /* ThemesViewController.m in Sources */,
+				FB954A14223051DB00041AF8 /* ThemesViewController.m in Sources */,
 				FBF09071222E96D300BB208D /* ThemesStruct.swift in Sources */,
 				FBB5844122205F640052535E /* Model.swift in Sources */,
 				FB5279352229781600D23839 /* Themes.m in Sources */,
