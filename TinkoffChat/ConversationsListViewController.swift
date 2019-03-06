@@ -6,6 +6,19 @@
 //  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
+
+/*
+ Переключение между ThemesViewController.swift и ThemesViewController.m
+ 
+ 1. Сменить Target Membership
+ 2. Проверить/Обновить Custom Class в StoryBoard
+ 3. В ConversationsListViewController:
+    a. Change on ThemesViewController.swift 3.1., 3.2., 3.3.
+    b. Change on ThemesViewController.m 3.4., 3.5., 3.6.
+ 
+ 
+ */
+
 import UIKit
 
 class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -20,8 +33,19 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UINavigationBar.appearance().barTintColor = UserDefaults.standard.colorForKey(key: "selectedColor")
+        
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+        
         self.conversetionListTableView.dataSource = self
         self.conversetionListTableView.delegate = self
+        
         
         sortConversationsArray()
         
@@ -58,16 +82,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             return true
         })
     }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "Show Chat") {
-            let cell = sender as? ConversetionTableViewCell
-            let conversationViewController = segue.destination as? ConversationViewController
-            conversationViewController?.title = cell?.name
-        }
-    }
-    
+
+	// MARK: Private methods
+	func logThemeChanging(selectedTheme: UIColor) {
+		ChatLog.printLog("Selected Theme color:\(selectedTheme)")
+	}
+
+	// MARK: TableView DataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -78,7 +99,20 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
         return 0
     }
-    
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		switch section {
+		case 0:
+			return "Online"
+		case 1:
+			return "History"
+		default:
+			break
+		}
+		return nil
+	}
+
+	// MARK: TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
@@ -97,18 +131,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Online"
-        case 1:
-            return "History"
-        default:
-            break
-        }
-        return nil
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 76
     }
@@ -117,4 +139,33 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         return 50.0
     }
 
+	// MARK: - Navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "Show Chat") {
+			let cell = sender as? ConversetionTableViewCell
+			let conversationViewController = segue.destination as? ConversationViewController
+			conversationViewController?.title = cell?.name
+
+		} else if (segue.identifier == "Show Themes") {
+			guard let themesNavigationController = segue.destination as? UINavigationController else { return }
+			guard let themesViewController = themesNavigationController.topViewController as? ThemesViewController else { return }
+            
+            //3.1. If you want change target on ThemesViewController.swift you have to remove the "//" from the line below
+            
+            //themesViewController.closure = { logThemeChanging }()
+            
+            //3.4. If you want change target on ThemesViewController.m you have to add the "//" to the line above
+            //3.5. If you want change target on ThemesViewController.m you have to remove the "//" from the line below
+			themesViewController.delegate = self as  ThemesViewControllerDelegate
+            //3.2. If you want change target on ThemesViewController.swift you have to add "//" to the line above
+		}
+	}
+}
+
+//3.3. If you want change target on ThemesViewController.swift you have to add the "//" to the block below
+//3.6. If you want change target on ThemesViewController.m you have to remove the "//" from the block below
+extension ConversationsListViewController: ThemesViewControllerDelegate {
+	func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
+		logThemeChanging(selectedTheme: selectedTheme)
+	}
 }

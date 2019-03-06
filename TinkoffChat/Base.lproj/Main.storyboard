@@ -113,6 +113,93 @@
             </objects>
             <point key="canvasLocation" x="-1421.25" y="88.732394366197184"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wkd-gh-htz">
+            <objects>
+                <navigationController id="1fN-Lp-fyw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ijy-Oz-Msn">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Kp5-dc-RfG" kind="relationship" relationship="rootViewController" id="RQm-6Z-zFR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xiY-aD-hVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2432" y="-1458"/>
+        </scene>
+        <!--Themes-->
+        <scene sceneID="kM1-le-elc">
+            <objects>
+                <viewController storyboardIdentifier="ThemesViewController" id="Kp5-dc-RfG" customClass="ThemesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b7t-Ga-9Kb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="sTo-yT-x6o">
+                                <rect key="frame" x="100" y="156.5" width="120" height="255"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reJ-aQ-RJ1">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Theme1"/>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="Kp5-dc-RfG" eventType="touchUpInside" id="DJT-g1-iQ3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJl-GZ-ira">
+                                        <rect key="frame" x="0.0" y="75" width="120" height="35"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Theme2"/>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="Kp5-dc-RfG" eventType="touchUpInside" id="wrD-7z-Q1Q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xll-Ds-HPF">
+                                        <rect key="frame" x="0.0" y="150" width="120" height="35"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Theme3"/>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="Kp5-dc-RfG" eventType="touchUpInside" id="VRQ-j0-VO1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gg-gF-TYQ">
+                                        <rect key="frame" x="0.0" y="225" width="120" height="30"/>
+                                        <state key="normal" title="Random"/>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="Kp5-dc-RfG" eventType="touchUpInside" id="mb7-J7-InE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sTo-yT-x6o" firstAttribute="centerY" secondItem="b7t-Ga-9Kb" secondAttribute="centerY" id="TQt-ws-5d4"/>
+                            <constraint firstItem="sTo-yT-x6o" firstAttribute="leading" secondItem="zhu-mN-OMY" secondAttribute="leading" constant="100" id="kAE-CZ-0Iw"/>
+                            <constraint firstItem="zhu-mN-OMY" firstAttribute="trailing" secondItem="sTo-yT-x6o" secondAttribute="trailing" constant="100" id="rbD-ue-Wat"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zhu-mN-OMY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Themes" id="jA3-MK-TOI">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="Z1X-uV-TEA">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="Kp5-dc-RfG" id="mfP-fz-Ntc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="firstButton" destination="reJ-aQ-RJ1" id="iTi-Qs-ksG"/>
+                        <outlet property="randomButton" destination="0gg-gF-TYQ" id="JV6-tB-scm"/>
+                        <outlet property="secondButton" destination="hJl-GZ-ira" id="WZH-JG-2D3"/>
+                        <outlet property="thirdButton" destination="Xll-Ds-HPF" id="8bd-WN-CJP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4q7-4y-3iU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1421" y="-1457"/>
+        </scene>
         <!--Title-->
         <scene sceneID="XhK-Oe-fcL">
             <objects>
@@ -187,9 +274,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="nnh-VQ-LuK">
+                        <barButtonItem key="leftBarButtonItem" title="Themes" id="wPa-9K-6dG">
+                            <connections>
+                                <segue destination="1fN-Lp-fyw" kind="presentation" identifier="Show Themes" id="mtW-09-u6d"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" style="done" id="6ow-aV-ctd">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ech-TF-kuk">
-                                <rect key="frame" x="14" y="0.0" width="290" height="44"/>
+                                <rect key="frame" x="99" y="0.0" width="205" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="profile"/>
                                 <connections>
