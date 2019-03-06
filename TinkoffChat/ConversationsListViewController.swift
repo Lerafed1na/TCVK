@@ -11,7 +11,7 @@
  Переключение между ThemesViewController.swift и ThemesViewController.m
  
  1. Сменить Target Membership
- 2. Проверить/Обновить Custom Class в StoryBoard
+ 2. Проверить/Обновить Custom Class в StoryBoard. Если запускаем ThemesViewController.swift, то ‘Inherit Module From Target' должна стоять галочка.
  3. В ConversationsListViewController:
     a. Change on ThemesViewController.swift 3.1., 3.2., 3.3.
     b. Change on ThemesViewController.m 3.4., 3.5., 3.6.

@@ -23,7 +23,7 @@
 		FBED87DE22171CCE001F18D6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBED87DD22171CCE001F18D6 /* Media.xcassets */; };
 		FBF09071222E96D300BB208D /* ThemesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF09070222E96D300BB208D /* ThemesStruct.swift */; };
 		FBF0907A222EE48C00BB208D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF09079222EE48C00BB208D /* UserDefaults.swift */; };
-		FBF0907F2230051F00BB208D /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB52793022283EA000D23839 /* ThemesViewController.m */; };
+		FBF09081223009FE00BB208D /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB52793022283EA000D23839 /* ThemesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,7 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBF0907F2230051F00BB208D /* ThemesViewController.m in Sources */,
+				FBF09081223009FE00BB208D /* ThemesViewController.m in Sources */,
 				FBF09071222E96D300BB208D /* ThemesStruct.swift in Sources */,
 				FBB5844122205F640052535E /* Model.swift in Sources */,
 				FB5279352229781600D23839 /* Themes.m in Sources */,
