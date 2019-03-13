@@ -15,8 +15,9 @@ protocol MessageCellConfiguration: class{
 class ChatTableViewCell:  UITableViewCell, MessageCellConfiguration {
     
     @IBOutlet var messageLabel: UILabel!
-    @IBOutlet var messageView: UIView!
+    @IBOutlet var messageView: UIView! // View for bubble background
     
+    // Conform to protocol. Setting textMessage:
     var textMessage: String? {
         didSet {
             messageLabel.text = textMessage
@@ -25,7 +26,7 @@ class ChatTableViewCell:  UITableViewCell, MessageCellConfiguration {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        //Styling chat bubbles:
         messageView.layer.cornerRadius = 15
         messageView.clipsToBounds = true
     }

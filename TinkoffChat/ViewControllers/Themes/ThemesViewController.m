@@ -35,6 +35,7 @@
     [self.randomButton setBackgroundColor:[UIColor whiteColor]];
     
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedColor"];
+    
     if ([NSKeyedUnarchiver unarchiveObjectWithData:colorData]) {
         UINavigationBar.appearance.barTintColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
         self.view.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
@@ -50,7 +51,6 @@
         }
     }
 }
-
 
 -(Themes*)model {
     return _model;

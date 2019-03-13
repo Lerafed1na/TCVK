@@ -17,6 +17,8 @@ class ConversationViewController: UIViewController {
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        // Remove separator:
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
 

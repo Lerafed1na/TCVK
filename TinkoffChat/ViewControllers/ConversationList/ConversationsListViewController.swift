@@ -6,19 +6,6 @@
 //  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
-
-/*
- Переключение между ThemesViewController.swift и ThemesViewController.m
- 
- 1. Сменить Target Membership
- 2. Проверить/Обновить Custom Class в StoryBoard. Если запускаем ThemesViewController.swift, то ‘Inherit Module From Target' должна стоять галочка.
- 3. В ConversationsListViewController:
-    a. Change on ThemesViewController.swift 3.1., 3.2., 3.3.
-    b. Change on ThemesViewController.m 3.4., 3.5., 3.6.
- 
- 
- */
-
 import UIKit
 
 class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -33,8 +20,15 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UINavigationBar.appearance().barTintColor = UserDefaults.standard.colorForKey(key: "selectedColor")
+        //update function for current theme with User Defaults:
         
+        if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
+            UINavigationBar.appearance().barTintColor = selectedColor
+        } else {
+            UINavigationBar.appearance().barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        }
+        
+        // Views updating:
         let windows = UIApplication.shared.windows
         for window in windows {
             for view in window.subviews {
@@ -49,20 +43,25 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         sortConversationsArray()
         
+        // Large navbar title and Remove separator:
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
+        self.conversetionListTableView.separatorStyle = .none
         
-        userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
-        userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
+        // Add to userProfileButton an Anchor constraint
+//        userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
+//        userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
         
         // Do any additional setup after loading the view.
     }
     
     func sortConversationsArray() {
         
+        // Make a two arrays: online and offline
         conversationsArray[0] = DataSource.conversetions.filter({$0.online == true})
         conversationsArray[1] = DataSource.conversetions.filter({$0.online == false})
         
+        // sort first array from last message to first
         conversationsArray[0]?.sort(by: { (first, second) -> Bool in
             if first.date == nil {
                 return false
@@ -72,6 +71,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             }
             return true
         })
+        
+        // sort second array from last message to first
         conversationsArray[1]?.sort(by: { (first, second) -> Bool in
             if first.date == nil {
                 return false
@@ -84,6 +85,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
 	// MARK: Private methods
+    // print chosen color for ThemesView delegate and closure:
 	func logThemeChanging(selectedTheme: UIColor) {
 		ChatLog.printLog("Selected Theme color:\(selectedTheme)")
 	}
@@ -140,33 +142,30 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
 	// MARK: - Navigation
+    // Segue to chat:
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if (segue.identifier == "Show Chat") {
 			let cell = sender as? ConversetionTableViewCell
 			let conversationViewController = segue.destination as? ConversationViewController
-			conversationViewController?.title = cell?.name
+			conversationViewController?.title = cell?.name //// Transfer name into navbar
 
+        //MARK: - Themes: segue to ThemesViewController:
 		} else if (segue.identifier == "Show Themes") {
 			guard let themesNavigationController = segue.destination as? UINavigationController else { return }
 			guard let themesViewController = themesNavigationController.topViewController as? ThemesViewController else { return }
             
-            //3.1. If you want change target on ThemesViewController.swift you have to remove the "//" from the line below
+            themesViewController.closure = { logThemeChanging }()
             
-            //themesViewController.closure = { logThemeChanging }()
+			//themesViewController.delegate = self as  ThemesViewControllerDelegate
             
-            //3.4. If you want change target on ThemesViewController.m you have to add the "//" to the line above
-            //3.5. If you want change target on ThemesViewController.m you have to remove the "//" from the line below
-			themesViewController.delegate = self as  ThemesViewControllerDelegate
-            //3.2. If you want change target on ThemesViewController.swift you have to add "//" to the line above
 		}
 	}
 }
 
-//3.3. If you want change target on ThemesViewController.swift you have to add the "//" to the block below
-//3.6. If you want change target on ThemesViewController.m you have to remove the "//" from the block below
-extension ConversationsListViewController: ThemesViewControllerDelegate {
+
+/*extension ConversationsListViewController: ThemesViewControllerDelegate {
 	func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
 		logThemeChanging(selectedTheme: selectedTheme)
  
 	}
-}
+}*/

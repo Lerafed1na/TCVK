@@ -24,11 +24,13 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
     @IBOutlet var timeOfLastMessageLabel: UILabel!
     @IBOutlet var lastMessageLabel: UILabel!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
+    // Conform to protocol. Setting name:
     var name: String? {
         didSet {
             if name != nil {
@@ -37,6 +39,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
         }
     }
     
+    // Conform to protocol. Setting message:
     var message: String? {
         didSet {
             if message == nil {
@@ -48,8 +51,11 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
+    
+    // Conform to protocol. Setting date:
     var date: Date? {
         didSet {
+            // Decoding date from String source:
             if let newDate = date {
                 let dateFormatter = DateFormatter()
                 if Calendar.current.isDateInToday(newDate) {
@@ -61,11 +67,15 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
+    
+    // Conform to protocol. Setting online:
     var online: Bool = true {
         didSet {
             self.backgroundColor = online ? #colorLiteral(red: 0.9557935596, green: 0.9555761218, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
+    
+    // Conform to protocol. Setting hasUnreadMessages:
     var hasUnreadMessages: Bool = true {
         didSet {
             if hasUnreadMessages == true {
@@ -78,6 +88,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
         }
     }
     
+    // Conform to protocol. Setting userImage:
     var userImage: String? {
         didSet {
             userImageView.image = UIImage(named: "placeholder-user")

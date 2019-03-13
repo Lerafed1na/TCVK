@@ -26,11 +26,17 @@ class ThemesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // take a saved color from User Defaults
-        UINavigationBar.appearance().barTintColor = UserDefaults.standard.colorForKey(key: "selectedColor")
+        //update function for current theme with User Defaults:
+        if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
+            UINavigationBar.appearance().barTintColor = selectedColor
+        } else {
+            UINavigationBar.appearance().barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        }
+        
         
         self.view.backgroundColor = UserDefaults.standard.colorForKey(key: "selectedColor") ?? UIColor.white
         
+        // Views updating:
         let windows = UIApplication.shared.windows
         for window in windows {
             for view in window.subviews {
