@@ -44,3 +44,17 @@ extension UIViewController
         view.endEditing(true)
     }
 }
+
+func updateWindows() {
+    let windows = UIApplication.shared.windows
+    for window in windows {
+        for view in window.subviews {
+            view.removeFromSuperview()
+            window.addSubview(view)
+        }
+    }
+}
+
+func generateMessageId() -> String {
+    return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)".data(using: .utf8)!.base64EncodedString()
+}

@@ -64,6 +64,8 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
                     dateFormatter.dateFormat = "dd MMM"
                 }
                 timeOfLastMessageLabel.text = dateFormatter.string(from: newDate)
+            } else {
+                timeOfLastMessageLabel.text = ""
             }
         }
     }

@@ -27,23 +27,39 @@ class ThemesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //update function for current theme with User Defaults:
-        if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
-            UINavigationBar.appearance().barTintColor = selectedColor
-        } else {
-            UINavigationBar.appearance().barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        }
         
-        
-        self.view.backgroundColor = UserDefaults.standard.colorForKey(key: "selectedColor") ?? UIColor.white
-        
-        // Views updating:
-        let windows = UIApplication.shared.windows
-        for window in windows {
-            for view in window.subviews {
-                view.removeFromSuperview()
-                window.addSubview(view)
+        DispatchQueue.global(qos: .userInteractive).async {
+            if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
+                DispatchQueue.main.async{
+                    self.view.backgroundColor = selectedColor
+                    UINavigationBar.appearance().barTintColor = selectedColor
+                }
+            } else {
+                DispatchQueue.main.async{
+                    UINavigationBar.appearance().barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                    self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                }
             }
         }
+//
+//        if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
+//            UINavigationBar.appearance().barTintColor = selectedColor
+//        } else {
+//            UINavigationBar.appearance().barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+//        }
+//
+//
+//        self.view.backgroundColor = UserDefaults.standard.colorForKey(key: "selectedColor") ?? UIColor.white
+        
+        // Views updating:
+//        let windows = UIApplication.shared.windows
+//        for window in windows {
+//            for view in window.subviews {
+//                view.removeFromSuperview()
+//                window.addSubview(view)
+//            }
+//        }
+        updateWindows()
         
         firstButton.backgroundColor = self.themes.theme1
         firstButton.layer.cornerRadius = 15
@@ -98,14 +114,15 @@ class ThemesViewController: UIViewController {
         UINavigationBar.appearance().barTintColor = selectedColor
         
         // Update all views
-        let windows = UIApplication.shared.windows
-        for window in windows {
-            for view in window.subviews {
-                view.removeFromSuperview()
-                window.addSubview(view)
-            }
-        }
+//        let windows = UIApplication.shared.windows
+//        for window in windows {
+//            for view in window.subviews {
+//                view.removeFromSuperview()
+//                window.addSubview(view)
+//            }
+//        }
        // save color in UserDefaults
+        updateWindows()
         UserDefaults.standard.setColor(color: selectedColor, forKey: "selectedColor")
     }
     

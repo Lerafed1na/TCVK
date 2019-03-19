@@ -131,7 +131,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 	}
 
 	private func showRetryAlert() {
-		let alertController = UIAlertController(title: "Error", message: "could not save data", preferredStyle: .alert)
+		let alertController = UIAlertController(title: "Error",
+                                                message: "could not save data",
+                                                preferredStyle: .alert)
 
 		let okAction = UIAlertAction(title: "OK", style: .default,
 									 handler: { [weak self] _ in
@@ -293,7 +295,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
 	// Photo uploading from Camera or Gallery
 	@IBAction func setButtonAction(_ sender: Any) {
-		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let actionSheet = UIAlertController(title: nil,
+                                            message: nil,
+                                            preferredStyle: .actionSheet)
 
 		let takePhotoAction = UIAlertAction(title: "Take Photo",
 											style: .cancel) { [weak self] _ in
@@ -308,7 +312,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 		actionSheet.addAction(takePhotoAction)
 		actionSheet.addAction(libraryPhotoAction)
 
-		present(actionSheet, animated: true, completion: nil)
+		present(actionSheet,
+                animated: true,
+                completion: nil)
 	}
     
     @IBAction func gcdSaveButtonWasPressed(_ sender: Any) {

@@ -262,14 +262,17 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="gKr-4Y-a79">
                                             <rect key="frame" x="83.5" y="8" width="220.5" height="22.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Name Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIu-4L-a9s">
-                                                    <rect key="frame" x="0.0" y="0.0" width="75.5" height="22.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIu-4L-a9s">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="22.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="NFl-0w-4GC"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI1-CV-qtd">
-                                                    <rect key="frame" x="145.5" y="0.0" width="75" height="22.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI1-CV-qtd">
+                                                    <rect key="frame" x="180" y="0.0" width="40.5" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -353,7 +356,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IB0-tN-R5h">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingCell" id="f8Q-hf-7Fx" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
@@ -434,18 +437,45 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3t-7e-i4I">
+                                <rect key="frame" x="266" y="526" width="38" height="34"/>
+                                <state key="normal" title="send"/>
+                                <connections>
+                                    <action selector="sendButtonWasPressed:" destination="6WJ-tM-HMP" eventType="touchUpInside" id="G5s-s4-6hC"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lwo-dA-BIg">
+                                <rect key="frame" x="16" y="526" width="240" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="aen-bU-1hz"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Lwo-dA-BIg" firstAttribute="leading" secondItem="JYA-Qp-MTh" secondAttribute="leading" constant="16" id="8sE-T6-UQf"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="N3t-7e-i4I" secondAttribute="bottom" constant="8" id="AKp-ag-roM"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="Lwo-dA-BIg" secondAttribute="bottom" constant="8" id="U9O-gQ-sJk"/>
+                            <constraint firstItem="N3t-7e-i4I" firstAttribute="top" secondItem="IB0-tN-R5h" secondAttribute="bottom" constant="8" id="hIV-h2-2xj"/>
                             <constraint firstItem="JYA-Qp-MTh" firstAttribute="trailing" secondItem="IB0-tN-R5h" secondAttribute="trailing" id="jFQ-ud-BxV"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="Lwo-dA-BIg" secondAttribute="bottom" constant="8" id="nMP-YE-ZNi"/>
+                            <constraint firstItem="Lwo-dA-BIg" firstAttribute="top" secondItem="IB0-tN-R5h" secondAttribute="bottom" constant="8" id="oZe-sq-kEx"/>
                             <constraint firstItem="IB0-tN-R5h" firstAttribute="leading" secondItem="JYA-Qp-MTh" secondAttribute="leading" id="qyK-a8-exZ"/>
-                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="IB0-tN-R5h" secondAttribute="bottom" id="rYa-dJ-BP6"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="IB0-tN-R5h" secondAttribute="bottom" constant="50" id="rYa-dJ-BP6"/>
+                            <constraint firstItem="N3t-7e-i4I" firstAttribute="leading" secondItem="Lwo-dA-BIg" secondAttribute="trailing" constant="10" id="tYC-pZ-GsQ"/>
                             <constraint firstItem="IB0-tN-R5h" firstAttribute="top" secondItem="JYA-Qp-MTh" secondAttribute="top" id="xSF-ZX-cfp"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="trailing" secondItem="N3t-7e-i4I" secondAttribute="trailing" constant="16" id="xw0-Q8-FrW"/>
+                            <constraint firstItem="JYA-Qp-MTh" firstAttribute="bottom" secondItem="Lwo-dA-BIg" secondAttribute="bottom" constant="8" id="zch-cb-pCj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JYA-Qp-MTh"/>
                     </view>
                     <connections>
+                        <outlet property="sendButton" destination="N3t-7e-i4I" id="wL2-vF-zRY"/>
                         <outlet property="tableView" destination="IB0-tN-R5h" id="ydh-Mc-eqw"/>
+                        <outlet property="textField" destination="Lwo-dA-BIg" id="61K-CV-mpP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFl-9e-bv2" userLabel="First Responder" sceneMemberID="firstResponder"/>
