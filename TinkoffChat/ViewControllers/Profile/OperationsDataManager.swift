@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OperationDataManager: DataManagerProtocol {
+class OperationDataManager:  {
     static let userNameKey = "userName"
     static let userInfoKey = "userInfo"
     

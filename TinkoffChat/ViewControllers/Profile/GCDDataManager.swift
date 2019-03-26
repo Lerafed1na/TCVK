@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GCDDataManager: DataManagerProtocol {
+class GCDDataManager:  {
 	static let userNameKey = "userName"
 	static let userInfoKey = "userInfo"
     internal let fileName: String

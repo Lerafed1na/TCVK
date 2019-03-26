@@ -8,10 +8,10 @@
 
 import UIKit
 
-class Profile {
+struct Profile {
     
-    var name: String = "Lera"
-    var info: String = "love swift"
-    var image: UIImage = UIImage(named: "placeholder-user")!
+    var name: String
+    var info: String
+    var image: UIImage
 }
 
