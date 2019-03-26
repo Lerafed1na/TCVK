@@ -59,27 +59,7 @@ class CoreDataManager: NSObject {
                 completion(profile)
             }
         }
-//        let appUser = AppUser.findOrInsertAppUser(in: coreDataStack.mainContext)
-//
-//        let profile: Profile
-//
-//        let name = appUser?.name ?? ""
-//        let info = appUser?.info ?? ""
-//
-//        let image: UIImage
-//        if let imageData = appUser?.image {
-//            image = UIImage(data: imageData) ?? UIImage(named: "placeholder-user")!
-//        } else {
-//            image = UIImage(named: "placeholder-user")!
-//        }
-//
-//        profile = Profile(name: name,
-//                          info: info,
-//                          image: image)
-//
-//        DispatchQueue.main.async {
-//            completion(profile)
-//        }
+
     }
     
 }
