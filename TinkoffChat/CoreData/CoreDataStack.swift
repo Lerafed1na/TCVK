@@ -73,8 +73,8 @@ class CoreDataStack: NSObject {
     
     // Saving function:
     public func performSave(context: NSManagedObjectContext, completion: ((Error?)->())?) {
-        if context.hasChanges {
-            context.perform { [weak self] in
+        context.perform { [weak self] in
+            if context.hasChanges {
                 do {
                     try context.save()
                 } catch {
@@ -87,9 +87,9 @@ class CoreDataStack: NSObject {
                 } else {
                     completion?(nil)
                 }
+            } else {
+                completion?(nil)
             }
-        } else {
-            completion?(nil)
         }
     }
 }
