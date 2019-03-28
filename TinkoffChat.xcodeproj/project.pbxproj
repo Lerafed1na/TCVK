@@ -11,6 +11,8 @@
 		FB13B5AB221FFF2100F585A1 /* ConversetionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB13B5AA221FFF2100F585A1 /* ConversetionTableViewCell.swift */; };
 		FB499F512230F7BE0093993B /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0906C222E8CB800BB208D /* ThemesViewController.swift */; };
 		FB5279352229781600D23839 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5279342229781600D23839 /* Themes.m */; };
+		FB53236C224CBFC00022D852 /* ConverstionsListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53236B224CBFC00022D852 /* ConverstionsListDelegate.swift */; };
+		FB53236E224CC0270022D852 /* ConversationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53236D224CC0270022D852 /* ConversationDelegate.swift */; };
 		FB5389422217263400093230 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5389412217263400093230 /* ProfileViewController.swift */; };
 		FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */; };
 		FB8A8A3B220C3B0E00B67C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8A8A3A220C3B0E00B67C31 /* AppDelegate.swift */; };
@@ -41,6 +43,8 @@
 		FB52793322286EC800D23839 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		FB5279342229781600D23839 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		FB5279362229782800D23839 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		FB53236B224CBFC00022D852 /* ConverstionsListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverstionsListDelegate.swift; sourceTree = "<group>"; };
+		FB53236D224CC0270022D852 /* ConversationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDelegate.swift; sourceTree = "<group>"; };
 		FB5389412217263400093230 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FB7EE7B222119AE3002CC1D1 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
 		FB8A8A37220C3B0E00B67C31 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +163,7 @@
 			children = (
 				FB13B5AA221FFF2100F585A1 /* ConversetionTableViewCell.swift */,
 				FBB5844022205F640052535E /* Model.swift */,
+				FB53236B224CBFC00022D852 /* ConverstionsListDelegate.swift */,
 				FB13B5A6221FE86200F585A1 /* ConversationsListViewController.swift */,
 			);
 			path = ConversationList;
@@ -168,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				FBE3E4022222F9FD00725C33 /* ConversationViewController.swift */,
+				FB53236D224CC0270022D852 /* ConversationDelegate.swift */,
 				FBE3E40422231C8A00725C33 /* ChatTableViewCell.swift */,
 			);
 			path = Conversation;
@@ -264,9 +270,11 @@
 				FB499F512230F7BE0093993B /* ThemesViewController.swift in Sources */,
 				FBE3E4032222F9FD00725C33 /* ConversationViewController.swift in Sources */,
 				FB91545C223E8C36001350DA /* MultipeerCommunicator.swift in Sources */,
+				FB53236C224CBFC00022D852 /* ConverstionsListDelegate.swift in Sources */,
 				FBE3E40522231C8A00725C33 /* ChatTableViewCell.swift in Sources */,
 				FB5389422217263400093230 /* ProfileViewController.swift in Sources */,
 				FB91545E223E9DE6001350DA /* CommunicationManager.swift in Sources */,
+				FB53236E224CC0270022D852 /* ConversationDelegate.swift in Sources */,
 				FBFDC66E224A95880079879B /* CoreDataManager.swift in Sources */,
 				FB7EE7B322119AE3002CC1D1 /* ChatLog.swift in Sources */,
 				FB8A8A43220C3B0E00B67C31 /* TinkoffChat.xcdatamodeld in Sources */,

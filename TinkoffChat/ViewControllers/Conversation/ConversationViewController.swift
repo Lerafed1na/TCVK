@@ -17,6 +17,7 @@ class ConversationViewController: UIViewController {
     
     var communicator: Communicator!
     var conversation: ConversationModel!
+    var converstionsListDelegate: ConversationsListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,15 +73,6 @@ class ConversationViewController: UIViewController {
                                                selector: #selector(keyboardWillHide(notification:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadData),
-                                               name: Notification.Name("ConversationReloadData"),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(sendButtonIsNotEnable),
-                                               name: Notification.Name("ConversationSendOff"),
-                                               object: nil)
     }
     
     private func removeObservers() {
@@ -90,26 +82,6 @@ class ConversationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIResponder.keyboardWillHideNotification,
                                                   object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("ConversationReloadData"),
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("ConversationSendOff"),
-                                                  object: nil)
-    }
-    
-    
-    @objc private func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    
-    @objc private func sendButtonIsNotEnable() {
-        DispatchQueue.main.async {
-            self.sendButton.isEnabled = false
-        }
     }
     
     
@@ -151,9 +123,7 @@ class ConversationViewController: UIViewController {
                                                                     isIncoming: false))
                     
                     self?.tableView.reloadData()
-                    
-                    NotificationCenter.default.post(name: Notification.Name("ConversationListSortDate"),
-                                                    object: nil)
+                    self?.converstionsListDelegate?.sortConverstionData()
                 } else {
                     let alertController = UIAlertController(title: "Error",
                                                             message: "message not send",
@@ -204,5 +174,22 @@ extension ConversationViewController: UITableViewDataSource {
 }
 
 extension ConversationViewController: UITableViewDelegate {
+    
+}
+
+extension ConversationViewController: ConversationDelegate {
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func lockTheSendButton() {
+        DispatchQueue.main.async {
+            self.sendButton.isEnabled = false
+        }
+    }
+    
     
 }

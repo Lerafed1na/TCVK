@@ -25,6 +25,7 @@ class ConversationsListViewController: UIViewController {
         super.viewDidLoad()
         
         communicator.delegate = communicationManager
+        communicationManager.conversationsListDelegate = self
         
         //update function for current theme with User Defaults:
         if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
@@ -51,26 +52,12 @@ class ConversationsListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadData),
-                                               name: Notification.Name("ConversationsListReloadData"),
-                                               object: nil)
         conversetionListTableView.reloadData()
     }
     
-    @objc internal func reloadData() {
-        DispatchQueue.main.async {
-            self.conversetionListTableView.reloadData()
-        }
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        
-        // removing observers
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("ConversationsListReloadData"),
-                                                  object: nil)
     }
 
 	// MARK: Private methods
@@ -87,9 +74,11 @@ class ConversationsListViewController: UIViewController {
             if let cell = sender as? ConversetionTableViewCell,
                 let conversationViewController = segue.destination as? ConversationViewController {
                 if let indexPath = conversetionListTableView.indexPathForSelectedRow {
-    
+                    
                     conversationViewController.communicator = communicator
                     conversationViewController.conversation = communicationManager.conversations[status[indexPath.section]!]?[indexPath.row]
+                    conversationViewController.converstionsListDelegate = self
+                    communicationManager.conversationDelegate = conversationViewController
                     conversationViewController.title = cell.name //// Transfer name into navbar
                 }
                 
@@ -165,6 +154,19 @@ extension ConversationsListViewController: UITableViewDataSource {
 }
 
 
+extension ConversationsListViewController: ConversationsListDelegate {
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.conversetionListTableView.reloadData()
+        }
+    }
+    
+    func sortConverstionData() {
+        communicationManager.conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
+    }
+    
+}
 /*extension ConversationsListViewController: ThemesViewControllerDelegate {
 	func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
 		logThemeChanging(selectedTheme: selectedTheme)

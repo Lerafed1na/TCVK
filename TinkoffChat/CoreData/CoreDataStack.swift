@@ -11,7 +11,6 @@ import CoreData
 
 
 class CoreDataStack: NSObject {
-    static let shared = CoreDataStack()
     
     
     // URL:

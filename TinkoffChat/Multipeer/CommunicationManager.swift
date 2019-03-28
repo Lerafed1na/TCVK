@@ -12,25 +12,13 @@ import UIKit
 class CommunicationManager: CommunicatorDelegate {
     
     
+    var conversationsListDelegate: ConversationsListDelegate?
+    var conversationDelegate: ConversationDelegate?
+
     var conversations: [String: [ConversationModel]] = [:]
     
     init() {
         conversations["online"] = [ConversationModel]()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(sortConversationDate),
-                                               name: Notification.Name("ConversationListSortDate"),
-                                               object: nil)
-        
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("ConversationListSortDate"),
-                                                  object: nil)
-    }
-    
-    @objc func sortConversationDate() {
-        conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
     }
     
     func didFoundUser(userID: String, userName: String?) {
@@ -44,22 +32,16 @@ class CommunicationManager: CommunicatorDelegate {
                                                           name: userName,
                                                           messages: [MessageModel](),
                                                           userImage: "placeholder-user"))
-        
-        NotificationCenter.default.post(name: Notification.Name("ConversationListSortDate"),
-                                        object: nil)
-        NotificationCenter.default.post(name: Notification.Name("ConversationsListReloadData"),
-                                        object: nil)
+        conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
+        conversationsListDelegate?.reloadData()
     }
     
     func didLostUser(userID: String) {
         if let index = conversations["online"]?.index(where: {(item) -> Bool in item.userId == userID}) {
             conversations["online"]?.remove(at: index)
             
-            NotificationCenter.default.post(name: Notification.Name("ConversationsListReloadData"),
-                                            object: nil)
-            
-            NotificationCenter.default.post(name: Notification.Name("ConversationSendOff"),
-                                            object: nil)
+            conversationsListDelegate?.reloadData()
+            conversationDelegate?.lockTheSendButton()
         }
     }
     
@@ -84,12 +66,9 @@ class CommunicationManager: CommunicatorDelegate {
             conversationsOnline[index].hasUnreadMessages = true
             conversationsOnline[index].message = conversationsOnline[index].messages.first?.textMessage
             
-            NotificationCenter.default.post(name: Notification.Name("ConversationListSortDate"),
-                                            object: nil)
-            NotificationCenter.default.post(name: Notification.Name("ConversationsListReloadData"),
-                                            object: nil)
-            NotificationCenter.default.post(name: Notification.Name("ConversationReloadData"),
-                                            object: nil)
+            conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
+            conversationDelegate?.reloadData()
+            conversationsListDelegate?.reloadData()
         }
     }
     

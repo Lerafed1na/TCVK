@@ -13,7 +13,7 @@ import UIKit
 
 class CoreDataManager: NSObject {
     
-    private let coreDataStack = CoreDataStack.shared
+    private let coreDataStack = CoreDataStack()
     
     
     func saveProfileData(profile: Profile, completion: @escaping (Error?) -> Void) {

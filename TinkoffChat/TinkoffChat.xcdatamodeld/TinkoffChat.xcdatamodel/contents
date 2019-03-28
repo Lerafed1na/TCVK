@@ -5,8 +5,12 @@
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class"/>
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class"/>
     <fetchRequest name="AppUser" entity="AppUser"/>
     <elements>
         <element name="AppUser" positionX="-9" positionY="36" width="128" height="90"/>
+        <element name="Message" positionX="-9" positionY="63" width="128" height="45"/>
+        <element name="Conversation" positionX="0" positionY="72" width="128" height="45"/>
     </elements>
 </model>
