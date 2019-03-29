@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ConversationModel: ConversationsCellConfiguration {
-    
+
     var userId: String
     var name: String?
     var message: String?
@@ -19,7 +19,7 @@ class ConversationModel: ConversationsCellConfiguration {
     var online: Bool = false
     var hasUnreadMessages: Bool = false
     var userImage: String?
-    
+
     init(userId: String, online: Bool, hasUnreadMessages: Bool, name: String? = nil, message: String? = nil, messages: [MessageModel], date: Date? = nil, userImage: String?) {
         self.userId = userId
         self.online = online
@@ -30,35 +30,29 @@ class ConversationModel: ConversationsCellConfiguration {
         self.date = date
         self.userImage = userImage
     }
-    
-    
+
     class func sortConversationsByDate(first: ConversationModel, second: ConversationModel) -> Bool {
-        
+
         if let first = first.date, let second = second.date {
             return first > second
         } else if first.date != second.date && (first.date == nil || second.date == nil) {
             return first.date ?? Date.distantPast > second.date ?? Date.distantPast
-        } else if let firstName = first.name, let secondName = second.name  {
-            if (first.date == nil || second.date == nil){
+        } else if let firstName = first.name, let secondName = second.name {
+            if first.date == nil || second.date == nil {
                 return firstName < secondName
             }
         }
         return true
     }
-    
-}
 
+}
 
 class MessageModel: MessageCellConfiguration {
     var textMessage: String?
     var isIncoming: Bool
-    
-    
+
     init(textMessage: String, isIncoming: Bool) {
         self.textMessage = textMessage
         self.isIncoming = isIncoming
     }
 }
-
-
-

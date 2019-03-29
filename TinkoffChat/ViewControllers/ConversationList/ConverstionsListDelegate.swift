@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol ConversationsListDelegate {
-    
+protocol ConversationsListDelegate: class {
+
     func reloadData()
     func sortConverstionData()
 }

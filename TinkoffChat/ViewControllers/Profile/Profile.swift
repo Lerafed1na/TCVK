@@ -9,9 +9,8 @@
 import UIKit
 
 struct Profile {
-    
+
     var name: String
     var info: String
     var image: UIImage
 }
-

@@ -9,7 +9,7 @@
 import Foundation
 
 class ChatLog {
-    
+
     public class func printLog(_ log: String) {
         // If equal "1" - print(log), if everything else - doesn't.
         if ProcessInfo.processInfo.environment["MyApp_log_level"] == "1" {

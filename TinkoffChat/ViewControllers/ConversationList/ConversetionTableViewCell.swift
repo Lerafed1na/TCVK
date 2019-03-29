@@ -8,28 +8,27 @@
 
 import UIKit
 
-protocol ConversationsCellConfiguration : class {
-    var name :String? {get set}
-    var message :String? {get set}
-    var date : Date? {get set}
-    var online : Bool {get set}
+protocol ConversationsCellConfiguration: class {
+    var name: String? {get set}
+    var message: String? {get set}
+    var date: Date? {get set}
+    var online: Bool {get set}
     var hasUnreadMessages: Bool {get set}
     var userImage: String? {get set}
 }
 
 class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration {
-    
+
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var nameOfUserLabel: UILabel!
     @IBOutlet var timeOfLastMessageLabel: UILabel!
     @IBOutlet var lastMessageLabel: UILabel!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     // Conform to protocol. Setting name:
     var name: String? {
         didSet {
@@ -38,7 +37,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
-    
+
     // Conform to protocol. Setting message:
     var message: String? {
         didSet {
@@ -51,7 +50,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
-    
+
     // Conform to protocol. Setting date:
     var date: Date? {
         didSet {
@@ -69,14 +68,14 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
-    
+
     // Conform to protocol. Setting online:
     var online: Bool = true {
         didSet {
             self.backgroundColor = online ? #colorLiteral(red: 0.9557935596, green: 0.9555761218, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
-    
+
     // Conform to protocol. Setting hasUnreadMessages:
     var hasUnreadMessages: Bool = true {
         didSet {
@@ -89,7 +88,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
             }
         }
     }
-    
+
     // Conform to protocol. Setting userImage:
     var userImage: String? {
         didSet {

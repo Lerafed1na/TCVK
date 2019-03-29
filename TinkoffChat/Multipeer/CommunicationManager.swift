@@ -6,26 +6,24 @@
 //  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
-
 import UIKit
 
 class CommunicationManager: CommunicatorDelegate {
-    
-    
-    var conversationsListDelegate: ConversationsListDelegate?
-    var conversationDelegate: ConversationDelegate?
+
+    weak var conversationsListDelegate: ConversationsListDelegate?
+    weak var conversationDelegate: ConversationDelegate?
 
     var conversations: [String: [ConversationModel]] = [:]
-    
+
     init() {
         conversations["online"] = [ConversationModel]()
     }
-    
+
     func didFoundUser(userID: String, userName: String?) {
         guard conversations["online"]?.index(where: {(item) -> Bool in item.userId == userID}) == nil else {
             return
         }
-        
+
         conversations["online"]?.append(ConversationModel(userId: userID,
                                                           online: true,
                                                           hasUnreadMessages: false,
@@ -35,16 +33,16 @@ class CommunicationManager: CommunicatorDelegate {
         conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
         conversationsListDelegate?.reloadData()
     }
-    
+
     func didLostUser(userID: String) {
         if let index = conversations["online"]?.index(where: {(item) -> Bool in item.userId == userID}) {
             conversations["online"]?.remove(at: index)
-            
+
             conversationsListDelegate?.reloadData()
             conversationDelegate?.lockTheSendButton()
         }
     }
-    
+
     func failedToStartAdvertising(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,
@@ -55,7 +53,7 @@ class CommunicationManager: CommunicatorDelegate {
                                 animated: true,
                                 completion: nil)
     }
-    
+
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         guard var conversationsOnline = conversations["online"] else {
             return
@@ -65,13 +63,13 @@ class CommunicationManager: CommunicatorDelegate {
             conversationsOnline[index].date = Date()
             conversationsOnline[index].hasUnreadMessages = true
             conversationsOnline[index].message = conversationsOnline[index].messages.first?.textMessage
-            
+
             conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
             conversationDelegate?.reloadData()
             conversationsListDelegate?.reloadData()
         }
     }
-    
+
     func failedToStartBrowsingForUsers(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ConversationDelegate {
+protocol ConversationDelegate: class {
     func reloadData()
     func lockTheSendButton()
 }

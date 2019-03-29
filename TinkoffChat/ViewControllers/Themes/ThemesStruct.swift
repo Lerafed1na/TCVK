@@ -9,7 +9,7 @@
 import Foundation
 
 struct ThemesStructSwift {
-    
+
     var theme1: UIColor
     var theme2: UIColor
     var theme3: UIColor

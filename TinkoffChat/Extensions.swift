@@ -9,7 +9,7 @@
 import Foundation
 
 extension UserDefaults {
-    
+
     func setColor(color: UIColor?, forKey key: String) {
         var colorData: NSData?
         if let color = color {
@@ -17,7 +17,7 @@ extension UserDefaults {
         }
         set(colorData, forKey: key)// UserDefault Built-in Method into Any?
     }
-    
+
     func colorForKey(key: String) -> UIColor? {
         var color: UIColor?
         if let colorData = data(forKey: key) {
@@ -25,22 +25,19 @@ extension UserDefaults {
         }
         return color
     }
-    
+
 }
 
-extension UIViewController
-{
-    func hideKeyboardWhenTapAround()
-    {
+extension UIViewController {
+    func hideKeyboardWhenTapAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
-    @objc func dismissKeyboard()
-    {
+
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
