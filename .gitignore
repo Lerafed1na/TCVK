@@ -5,6 +5,7 @@
 ## Build generated
 build/
 DerivedData/
+Pods/
 
 ## Various settings
 xcuserdata/
@@ -13,4 +14,4 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 .DS_Store
-Pods/
+
