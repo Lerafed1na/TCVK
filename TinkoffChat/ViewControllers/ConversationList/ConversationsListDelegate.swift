@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ConversationsListDelegate: class {
-
+    
     func reloadData()
     func sortConverstionData()
 }

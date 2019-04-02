@@ -10,9 +10,10 @@ import UIKit
 import CoreData
 
 class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+  
 
   var fetchResultsController: NSFetchedResultsController<Message>!
-
+  
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -20,6 +21,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     var communicator: Communicator!
     var conversation: Conversation!
     weak var converstionsListDelegate: ConversationsListDelegate?
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +36,10 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
 
         // Remove separator:
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+      
       initialMessagesFetching()
     }
-
+  
   private func initialMessagesFetching() {
     guard let conversationId = conversation.conversationId else { return }
     fetchResultsController = NSFetchedResultsController(fetchRequest: FRManager.shared.fetchMessagesBy(conversationID: conversationId),
@@ -50,6 +52,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     } catch {
     }
   }
+
 
     private func setupSendButton() {
         sendButton.layer.cornerRadius = sendButton.bounds.height / 5
@@ -126,7 +129,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func sendButtonWasPressed(_ sender: Any) {
       let messageToSend = textField.text
       let conversationId = conversation.conversationId
-
+      
       CommunicationManager.shared.multipeerCommunicator.sendMessage(string: messageToSend!, to: conversationId!) { success, error in
         if success {
           self.textField.text = ""
@@ -141,15 +144,15 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         }
       }
     }
-
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
-
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return fetchResultsController.fetchedObjects?.count ?? 0
   }
-
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let message = fetchResultsController.object(at: indexPath)
             var identifier = ""
@@ -166,6 +169,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
             return cell
   }
 }
+
 
 extension ConversationViewController: ConversationDelegate {
 

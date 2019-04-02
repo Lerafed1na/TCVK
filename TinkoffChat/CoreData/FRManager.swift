@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 class FRManager {
-
+    
     static let shared = FRManager()
-
+    
     func fetchConversations() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         let dateSortDescriptor = NSSortDescriptor(key: "date",
@@ -23,33 +23,33 @@ class FRManager {
                                    dateSortDescriptor]
         return request
     }
-
+    
     func fetchConversationsOnline() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-
+    
     func fetchConversationBy(id: String) -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "conversationId == %@",
                                         id)
         return request
     }
-
+    
     func fetchUsersOnline() -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-
+    
     func fetchUserByID(id: String) -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "userId == %@",
                                         id)
         return request
     }
-
+    
     func fetchMessagesBy(conversationID: String) -> NSFetchRequest<Message> {
         let request: NSFetchRequest<Message> = Message.fetchRequest()
         request.predicate = NSPredicate(format: "conversationId == %@",

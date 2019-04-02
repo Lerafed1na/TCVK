@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 
 class CommunicationManager: CommunicatorDelegate {
-
+    
     func failedToStartBrowsingForUsers(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,
@@ -21,7 +21,7 @@ class CommunicationManager: CommunicatorDelegate {
                                 animated: true,
                                 completion: nil)
     }
-
+    
     func failedToStartAdvertising(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,
@@ -32,17 +32,18 @@ class CommunicationManager: CommunicatorDelegate {
                                 animated: true,
                                 completion: nil)
     }
-
+    
+    
     static let shared = CommunicationManager()
     var multipeerCommunicator: MultipeerCommunicator!
-    weak var delegate: ManagerDelegate!
+    var delegate: ManagerDelegate!
     var conversations: [String: [ConversationModel]] = [:]
-
+    
     private init() {
         self.multipeerCommunicator = MultipeerCommunicator()
         self.multipeerCommunicator.delegate = self
     }
-
+    
     func didFoundUser(userID: String, userName: String?) {
         print("User found")
         let saveContext = CoreDataStack.shared.saveContext
@@ -58,7 +59,7 @@ class CommunicationManager: CommunicatorDelegate {
                                              completion: nil)
         }
     }
-
+    
     func didLostUser(userID: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
@@ -67,7 +68,7 @@ class CommunicationManager: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext, completion: nil)
         }
     }
-
+    
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
@@ -96,5 +97,6 @@ class CommunicationManager: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext, completion: nil)
         }
     }
-
+    
+    
 }
