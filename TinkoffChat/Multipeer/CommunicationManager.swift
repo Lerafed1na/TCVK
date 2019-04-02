@@ -7,40 +7,19 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class CommunicationManager: CommunicatorDelegate {
 
-    weak var conversationsListDelegate: ConversationsListDelegate?
-    weak var conversationDelegate: ConversationDelegate?
-
-    var conversations: [String: [ConversationModel]] = [:]
-
-    init() {
-        conversations["online"] = [ConversationModel]()
-    }
-
-    func didFoundUser(userID: String, userName: String?) {
-        guard conversations["online"]?.index(where: {(item) -> Bool in item.userId == userID}) == nil else {
-            return
-        }
-
-        conversations["online"]?.append(ConversationModel(userId: userID,
-                                                          online: true,
-                                                          hasUnreadMessages: false,
-                                                          name: userName,
-                                                          messages: [MessageModel](),
-                                                          userImage: "placeholder-user"))
-        conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
-        conversationsListDelegate?.reloadData()
-    }
-
-    func didLostUser(userID: String) {
-        if let index = conversations["online"]?.index(where: {(item) -> Bool in item.userId == userID}) {
-            conversations["online"]?.remove(at: index)
-
-            conversationsListDelegate?.reloadData()
-            conversationDelegate?.lockTheSendButton()
-        }
+    func failedToStartBrowsingForUsers(error: Error) {
+        let alertController = UIAlertController(title: "Error",
+                                                message: error.localizedDescription,
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Done",
+                                                style: .cancel))
+        alertController.present(alertController,
+                                animated: true,
+                                completion: nil)
     }
 
     func failedToStartAdvertising(error: Error) {
@@ -54,30 +33,68 @@ class CommunicationManager: CommunicatorDelegate {
                                 completion: nil)
     }
 
+    static let shared = CommunicationManager()
+    var multipeerCommunicator: MultipeerCommunicator!
+    weak var delegate: ManagerDelegate!
+    var conversations: [String: [ConversationModel]] = [:]
+
+    private init() {
+        self.multipeerCommunicator = MultipeerCommunicator()
+        self.multipeerCommunicator.delegate = self
+    }
+
+    func didFoundUser(userID: String, userName: String?) {
+        print("User found")
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            guard let user = User.findOrInsertUser(id: userID,
+                                                   in: saveContext) else { return }
+            let conversation = Conversation.findOrInsertConversationBy(id: userID,
+                                                                       in: saveContext)
+            conversation.user = user
+            user.name = userName
+            conversation.isOnline = true
+            CoreDataStack.shared.performSave(context: saveContext,
+                                             completion: nil)
+        }
+    }
+
+    func didLostUser(userID: String) {
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            let conversation = Conversation.findOrInsertConversationBy(id: userID, in: saveContext)
+            conversation.isOnline = false
+            CoreDataStack.shared.performSave(context: saveContext, completion: nil)
+        }
+    }
+
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-        guard var conversationsOnline = conversations["online"] else {
-            return
-        }
-        if let index = conversationsOnline.index(where: {(item) -> Bool in item.userId == fromUser}) {
-          conversationsOnline[index].messages.append(MessageModel(textMessage: text, isIncoming: true))
-            conversationsOnline[index].date = Date()
-            conversationsOnline[index].hasUnreadMessages = true
-            conversationsOnline[index].message = conversationsOnline[index].messages.first?.textMessage
-
-            conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
-            conversationDelegate?.reloadData()
-            conversationsListDelegate?.reloadData()
+        let saveContext = CoreDataStack.shared.saveContext
+        saveContext.perform {
+            let message: Message
+            if let conversation = Conversation.findConversationBy(id: fromUser, in: saveContext) {
+                message = Message.insertNewMessage(in: saveContext)
+                message.isIncoming = true
+                message.conversationId = conversation.conversationId
+                message.text = text
+                conversation.date = Date()
+                message.date = Date()
+                conversation.hasUnreadMessage = true
+                conversation.addToMessages(message)
+                conversation.lastMessage = message
+            } else if let conversation = Conversation.findConversationBy(id: toUser, in: saveContext) {
+                message = Message.insertNewMessage(in: saveContext)
+                message.isIncoming = false
+                message.conversationId = conversation.conversationId
+                message.text = text
+                conversation.date = Date()
+                message.date = Date()
+                conversation.hasUnreadMessage = false
+                conversation.addToMessages(message)
+                conversation.lastMessage = message
+            }
+            CoreDataStack.shared.performSave(context: saveContext, completion: nil)
         }
     }
 
-    func failedToStartBrowsingForUsers(error: Error) {
-        let alertController = UIAlertController(title: "Error",
-                                                message: error.localizedDescription,
-                                                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Done",
-                                                style: .cancel))
-        alertController.present(alertController,
-                                animated: true,
-                                completion: nil)
-    }
 }

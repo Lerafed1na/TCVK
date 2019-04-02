@@ -8,22 +8,20 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreData
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ManagerDelegate {
 
-    @IBOutlet var conversetionListTableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var userProfileButton: UIButton!
 
-    private var communicator: Communicator = MultipeerCommunicator()
-    private var communicationManager = CommunicationManager()
-
-    let status = [0: "online", 1: "offline"]
+    var fetchResultsController: NSFetchedResultsController<Conversation>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      self.tableView.dataSource = self
 
-        communicator.delegate = communicationManager
-        communicationManager.conversationsListDelegate = self
+        CommunicationManager.shared.delegate = self
 
         //update function for current theme with User Defaults:
         if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
@@ -34,21 +32,39 @@ class ConversationsListViewController: UIViewController {
 
         updateWindows()
 
-        self.conversetionListTableView.dataSource = self
-        self.conversetionListTableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
 
         // Large navbar title and Remove separator:
         navigationItem.title = "Tinkoff Chat"
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.conversetionListTableView.separatorStyle = .none
+        self.tableView.separatorStyle = .none
 
         // Add to userProfileButton an Anchor constraint
         userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
         userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
+
+      initialConversationFetching()
+
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        conversetionListTableView.reloadData()
+    func initialConversationFetching() {
+        let request = FRManager.shared.fetchConversations()
+        request.fetchBatchSize = 20
+        fetchResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                            managedObjectContext: CoreDataStack.shared.mainContext,
+                                                            sectionNameKeyPath: nil,
+                                                            cacheName: nil)
+        fetchResultsController.delegate = self
+        do {
+          try fetchResultsController.performFetch()
+        } catch let error {
+          print("fetchConversations() method:   \(error)")
+        }
+    }
+
+    func globalUpdate() {
+        print("global")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,18 +82,16 @@ class ConversationsListViewController: UIViewController {
     // Segue to chat:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Show Chat" {
-            if let cell = sender as? ConversetionTableViewCell,
-                let conversationViewController = segue.destination as? ConversationViewController {
-                if let indexPath = conversetionListTableView.indexPathForSelectedRow {
+          if let indexPath = tableView.indexPathForSelectedRow {
+            guard let destinationController = segue.destination as?
+                ConversationViewController else { return }
 
-                    conversationViewController.communicator = communicator
-                    conversationViewController.conversation = communicationManager.conversations[status[indexPath.section]!]?[indexPath.row]
-                    conversationViewController.converstionsListDelegate = self
-                    communicationManager.conversationDelegate = conversationViewController
-                    conversationViewController.title = cell.name //// Transfer name into navbar
-                }
+            let conversation = fetchResultsController.object(at: indexPath)
+            print(conversation)
+            print(destinationController)
+            destinationController.conversation = conversation
 
-            }
+          }
             // MARK: - Themes: segue to ThemesViewController:
         } else if segue.identifier == "Show Themes" {
             guard let themesNavigationController = segue.destination as? UINavigationController else { return }
@@ -89,79 +103,88 @@ class ConversationsListViewController: UIViewController {
 
         }
     }
-}
 
-extension ConversationsListViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+  func numberOfSections(in tableView: UITableView) -> Int {
+    if let sections = fetchResultsController?.sections {
+        return sections.count
     }
+    return 0
+  }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return fetchResultsController.fetchedObjects?.count ?? 0
+  }
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell",
-                                                       for: indexPath) as? ConversetionTableViewCell else { return UITableViewCell() }
-        if let conversation = communicationManager.conversations[status[indexPath.section]!]?[indexPath.row] {
-
-            cell.name = conversation.name
-            cell.message = conversation.messages.last?.textMessage
-            cell.date = conversation.date
-            cell.online = conversation.online
-            cell.hasUnreadMessages = conversation.hasUnreadMessages
-
-        }
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 76
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50.0
-    }
-}
-
-extension ConversationsListViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return communicationManager.conversations[status[section]!]?.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Online"
-
-        default:
-            break
-        }
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    guard let sections = fetchResultsController?.sections else {
         return nil
     }
-}
+    return sections[section].indexTitle == "1" ? "Online" : "History"
+  }
 
-extension ConversationsListViewController: ConversationsListDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+  }
 
-    func reloadData() {
-        DispatchQueue.main.async {
-            self.conversetionListTableView.reloadData()
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell",
+                                                   for: indexPath) as? ConversetionTableViewCell else { return UITableViewCell() }
+
+    let conversation = fetchResultsController.object(at: indexPath)
+    cell.name = conversation.user?.name
+    cell.date = conversation.date
+    if let lastMessage = conversation.lastMessage, (conversation.messages?.count)! > 0 {
+        if conversation.hasUnreadMessage {
+                        cell.lastMessageLabel.font = UIFont(name: "HelveticaNeue-Bold",
+                                                size: 16)
+        } else {
+            cell.lastMessageLabel.font = UIFont(name: "Futura-Medium",
+                                                size: 14.0)
         }
+        cell.lastMessageLabel.text = lastMessage.text
+    } else {
+        cell.lastMessageLabel.text = "No messages yet"
+        cell.lastMessageLabel.font = UIFont(name: "Futura-Medium",
+                                            size: 14.0)
+    }
+    cell.hasUnreadMessages = conversation.hasUnreadMessage
+    if cell.online == conversation.isOnline {
+        cell.backgroundColor = #colorLiteral(red: 0.7980608344, green: 0.943246901, blue: 0, alpha: 1)
+    } else {
+        cell.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     }
 
-    func sortConverstionData() {
-        communicationManager.conversations["online"]?.sort(by: ConversationModel.sortConversationsByDate)
-    }
+    return cell
+  }
 
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 76
+  }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 50.0
+  }
 }
-/*extension ConversationsListViewController: ThemesViewControllerDelegate {
-	func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
-		logThemeChanging(selectedTheme: selectedTheme)
- 
-	}
-}*/
+
+extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    switch type {
+    case .update:
+      tableView.reloadRows(at: [newIndexPath!], with: .none)
+    case .insert:
+      tableView.insertRows(at: [newIndexPath!], with: .none)
+    case .delete:
+      tableView.deleteRows(at: [indexPath!], with: .none)
+    case.move:
+      tableView.deleteRows(at: [indexPath!], with: .none)
+      tableView.insertRows(at: [newIndexPath!], with: .none)
+    }
+  }
+  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.beginUpdates()
+  }
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.endUpdates()
+  }
+}

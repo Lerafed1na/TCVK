@@ -222,7 +222,7 @@
         <scene sceneID="XhK-Oe-fcL">
             <objects>
                 <tableViewController id="EWr-LT-FVM" customClass="ConversationsListViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WN5-XF-f7M">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WN5-XF-f7M" userLabel="tableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -290,8 +290,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="EWr-LT-FVM" id="Ixa-FG-hmy"/>
-                            <outlet property="delegate" destination="EWr-LT-FVM" id="Vnu-Pw-veG"/>
+                            <outlet property="dataSource" destination="EWr-LT-FVM" id="ff9-1q-6GA"/>
+                            <outlet property="delegate" destination="EWr-LT-FVM" id="tzL-BV-wc2"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="nnh-VQ-LuK">
@@ -313,7 +313,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="conversetionListTableView" destination="WN5-XF-f7M" id="UUX-Bq-RI2"/>
+                        <outlet property="tableView" destination="WN5-XF-f7M" id="UUX-Bq-RI2"/>
                         <outlet property="userProfileButton" destination="ech-TF-kuk" id="64g-fU-pkk"/>
                     </connections>
                 </tableViewController>

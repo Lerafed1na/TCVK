@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
-class ConversationViewController: UIViewController {
+class ConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+
+  var fetchResultsController: NSFetchedResultsController<Message>!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
 
     var communicator: Communicator!
-    var conversation: ConversationModel!
+    var conversation: Conversation!
     weak var converstionsListDelegate: ConversationsListDelegate?
 
     override func viewDidLoad() {
@@ -32,7 +35,21 @@ class ConversationViewController: UIViewController {
         // Remove separator:
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
 
+      initialMessagesFetching()
     }
+
+  private func initialMessagesFetching() {
+    guard let conversationId = conversation.conversationId else { return }
+    fetchResultsController = NSFetchedResultsController(fetchRequest: FRManager.shared.fetchMessagesBy(conversationID: conversationId),
+                                                        managedObjectContext: CoreDataStack.shared.mainContext,
+                                                        sectionNameKeyPath: nil,
+                                                        cacheName: nil)
+    fetchResultsController.delegate = self
+    do {
+      try fetchResultsController.performFetch()
+    } catch {
+    }
+  }
 
     private func setupSendButton() {
         sendButton.layer.cornerRadius = sendButton.bounds.height / 5
@@ -107,69 +124,47 @@ class ConversationViewController: UIViewController {
     }
 
     @IBAction func sendButtonWasPressed(_ sender: Any) {
+      let messageToSend = textField.text
+      let conversationId = conversation.conversationId
 
-        if let text = textField.text {
-            communicator.sendMessage(string: text, to: conversation.userId) {[weak self] (success, error) in
-                if success {
-                    self?.textField.text = ""
+      CommunicationManager.shared.multipeerCommunicator.sendMessage(string: messageToSend!, to: conversationId!) { success, error in
+        if success {
+          self.textField.text = ""
+          self.sendButton.isEnabled = true
+        }
+        if let error = error {
+          self.view.endEditing(true)
+          let alert = UIAlertController(title: "Ошибка при отправке сообщения: \(error.localizedDescription)", message: nil, preferredStyle: .alert)
+          let action = UIAlertAction(title: "Ок", style: .default, handler: nil)
+          alert.addAction(action)
+          self.present(alert, animated: true, completion: nil)
+        }
+      }
+    }
 
-                    self?.conversation.date = Date()
-                    self?.conversation.message = text
-                    self?.conversation.messages.append(MessageModel(textMessage: text,
-                                                                    isIncoming: false))
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
 
-                    self?.tableView.reloadData()
-                    self?.converstionsListDelegate?.sortConverstionData()
-                } else {
-                    let alertController = UIAlertController(title: "Error",
-                                                            message: "message not send",
-                                                            preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Done",
-                                                            style: .destructive))
-                    self?.present(alertController,
-                                  animated: true,
-                                  completion: nil)
-                }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return fetchResultsController.fetchedObjects?.count ?? 0
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let message = fetchResultsController.object(at: indexPath)
+            var identifier = ""
+            if message.isIncoming {
+                identifier = "IncomingCell"
+            } else {
+                identifier = "OutcomingCell"
             }
-        }
-    }
-
-}
-
-extension ConversationViewController: UITextFieldDelegate {
-
-}
-
-extension ConversationViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversation.messages.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = conversation.messages[indexPath.row]
-        var identifier = ""
-        if message.isIncoming {
-            identifier = "IncomingCell"
-        } else {
-            identifier = "OutcomingCell"
-        }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? ChatTableViewCell else {
-            return ChatTableViewCell()
-        }
-        cell.textMessage = message.textMessage
-
-        return cell
-    }
-
-}
-
-extension ConversationViewController: UITableViewDelegate {
-
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier,
+                                                           for: indexPath) as? ChatTableViewCell else {
+                return ChatTableViewCell()
+            }
+            cell.textMessage = message.text
+            return cell
+  }
 }
 
 extension ConversationViewController: ConversationDelegate {
@@ -185,5 +180,33 @@ extension ConversationViewController: ConversationDelegate {
             self.sendButton.isEnabled = false
         }
     }
+}
 
+extension ConversationViewController: NSFetchedResultsControllerDelegate {
+  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.beginUpdates()
+  }
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.endUpdates()
+  }
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                  didChange anObject: Any, at indexPath: IndexPath?,
+                  for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    switch type {
+    case .delete:
+      tableView.deleteRows(at: [indexPath!],
+                           with: .none)
+    case .update:
+      tableView.reloadRows(at: [indexPath!],
+                           with: .none)
+    case .insert:
+      tableView.insertRows(at: [newIndexPath!],
+                           with: .none)
+    case .move:
+      tableView.deleteRows(at: [indexPath!],
+                           with: .none)
+      tableView.insertRows(at: [newIndexPath!],
+                           with: .none)
+    }
+  }
 }

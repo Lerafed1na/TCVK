@@ -20,6 +20,9 @@ class MultipeerCommunicator: NSObject, Communicator {
     let serviceType = "tinkoff-chat"
     let myPeerID = MCPeerID(displayName: UIDevice.current.name)
 
+    // Dictionary to save active sessions:
+    var activeSessions: [String: MCSession] = [:]
+
     //Create a lazy initialized session property to create a MCSession on demand and implement the MCSessionDelegate protocol:
     lazy var session: MCSession = {
         let session = MCSession(peer: myPeerID,
@@ -66,6 +69,7 @@ class MultipeerCommunicator: NSObject, Communicator {
 
                 let jsonMessage = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
                 try session.send(jsonMessage!, toPeers: [session.connectedPeers[indexTo]], with: .reliable)
+                delegate?.didRecieveMessage(text: string, fromUser: myPeerID.displayName, toUser: userID)
                 completionHandler?(true, nil)
             } catch let error {
                 completionHandler?(false, error)
@@ -85,13 +89,11 @@ extension MultipeerCommunicator: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String, String>
-
             if let text = json?["text"] {
                 delegate?.didRecieveMessage(text: text,
                                             fromUser: peerID.displayName,
                                             toUser: myPeerID.displayName)
             }
-
         } catch {
             print("problem with json")
         }
@@ -130,11 +132,30 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
 
     //send invite to ID
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        if let info = info {
-            delegate?.didFoundUser(userID: peerID.displayName, userName: info["userName"])
-        }
-        browser.invitePeer(peerID, to: session, withContext: nil, timeout: 60)
+      guard let recievedInfo = info else { return } // Safely getting recieved info
+      guard let blabberName = recievedInfo["userName"] else { return }  // Safely getting blabber name from dictionary
+
+      let session: MCSession = manageSession(with: peerID)
+      browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
+      delegate?.didFoundUser(userID: peerID.displayName, userName: blabberName)
+
+//        if let info = info {
+//            delegate?.didFoundUser(userID: peerID.displayName, userName: info["userName"])
+//        }
+//        browser.invitePeer(peerID, to: session, withContext: nil, timeout: 60)
     }
+
+  func manageSession(with peerID: MCPeerID) -> MCSession {
+    // Checking if user is already on the list:
+    guard activeSessions[peerID.displayName] == nil else { return activeSessions[peerID.displayName]! }
+    // Create session for user:
+    let session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
+    session.delegate = self
+
+    // Associate user with session:
+    activeSessions[peerID.displayName] = session
+    return activeSessions[peerID.displayName]!
+  }
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         delegate?.didLostUser(userID: peerID.displayName)
@@ -165,4 +186,9 @@ protocol CommunicatorDelegate: class {
 
     //messages
     func didRecieveMessage(text: String, fromUser: String, toUser: String)
+}
+
+protocol ManagerDelegate: class {
+    // Manager delegation functions:
+    func globalUpdate()
 }

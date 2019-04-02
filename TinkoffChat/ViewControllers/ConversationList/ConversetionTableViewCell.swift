@@ -39,6 +39,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
     }
 
     // Conform to protocol. Setting message:
+//    var message: String?
     var message: String? {
         didSet {
             if message == nil {
@@ -77,6 +78,7 @@ class ConversetionTableViewCell: UITableViewCell, ConversationsCellConfiguration
     }
 
     // Conform to protocol. Setting hasUnreadMessages:
+//    var hasUnreadMessages: Bool = true
     var hasUnreadMessages: Bool = true {
         didSet {
             if hasUnreadMessages == true {
