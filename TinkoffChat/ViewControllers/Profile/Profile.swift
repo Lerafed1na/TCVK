@@ -8,9 +8,16 @@
 
 import UIKit
 
-struct Profile {
+protocol IProfile {
+    var name: String { get set }
+    var info: String { get set }
+    var image: UIImage { get set }
+}
 
+struct Profile: IProfile {
     var name: String
     var info: String
     var image: UIImage
 }
+
+

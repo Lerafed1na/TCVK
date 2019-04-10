@@ -2,7 +2,7 @@
 //  FRManager.swift
 //  TinkoffChat
 //
-//  Created by Valeriia Korenevich on 02/04/2019.
+//  Created by Valeriia Korenevich on 10/04/2019.
 //  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 

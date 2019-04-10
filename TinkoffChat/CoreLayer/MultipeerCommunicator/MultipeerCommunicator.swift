@@ -9,9 +9,15 @@
 import Foundation
 import MultipeerConnectivity
 
-class MultipeerCommunicator: NSObject, Communicator {
+protocol ICommunicator {
+    func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
+    var delegate: ICommunicatorDelegate? {get set}
+    var online: Bool {get set}
+}
 
-    weak var delegate: CommunicatorDelegate?
+class MultipeerCommunicator: NSObject, ICommunicator {
+
+    weak var delegate: ICommunicatorDelegate?
 
     private let serviceBrowser: MCNearbyServiceBrowser!
     private let serviceAdvertiser: MCNearbyServiceAdvertiser!
@@ -131,22 +137,15 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
 }
 
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
-
-
     //send invite to ID
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
       guard let recievedInfo = info else { return } // Safely getting recieved info
-      guard let blabberName = recievedInfo["userName"] else { return }  // Safely getting blabber name from dictionary
+      guard let userName = recievedInfo["userName"] else { return }  // Safely getting user name from dictionary
       
       let session: MCSession = manageSession(with: peerID)
       browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
-      delegate?.didFoundUser(userID: peerID.displayName, userName: blabberName)
+      delegate?.didFoundUser(userID: peerID.displayName, userName: userName)
       
-      
-//        if let info = info {
-//            delegate?.didFoundUser(userID: peerID.displayName, userName: info["userName"])
-//        }
-//        browser.invitePeer(peerID, to: session, withContext: nil, timeout: 60)
     }
   
   func manageSession(with peerID: MCPeerID) -> MCSession {
@@ -174,26 +173,3 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
 
 }
 
-protocol Communicator {
-    func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
-    var delegate: CommunicatorDelegate? {get set}
-    var online: Bool {get set}
-}
-
-protocol CommunicatorDelegate: class {
-    //discovering
-    func didFoundUser(userID: String, userName: String?)
-    func didLostUser(userID: String)
-
-    //errors
-    func failedToStartBrowsingForUsers(error: Error)
-    func failedToStartAdvertising(error: Error)
-
-    //messages
-    func didRecieveMessage(text: String, fromUser: String, toUser: String)
-}
-
-protocol ManagerDelegate {
-    // Manager delegation functions:
-    func globalUpdate()
-}

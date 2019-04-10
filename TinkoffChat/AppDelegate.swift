@@ -13,11 +13,14 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private let rootAssembly = RootAssembly()
     var prevState = "NOT RUNNING"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Called if everything is fine with initialization
        printAplicationState(UIApplication.shared.applicationState)
+//        guard let rootVC = window?.rootViewController as? UINavigationController,
+//            let conversationVC = rootVC.topViewController as? ConversationsListViewController else { return true }
         return true
     }
 

@@ -18,7 +18,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
 
-    var communicator: Communicator!
+    var communicator: ICommunicator!
     var conversation: Conversation!
     weak var converstionsListDelegate: ConversationsListDelegate?
   
@@ -129,8 +129,8 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func sendButtonWasPressed(_ sender: Any) {
       let messageToSend = textField.text
       let conversationId = conversation.conversationId
-      
-      CommunicationManager.shared.multipeerCommunicator.sendMessage(string: messageToSend!, to: conversationId!) { success, error in
+       
+    communicator.sendMessage(string: messageToSend!, to: conversationId!) { success, error in
         if success {
           self.textField.text = ""
           self.sendButton.isEnabled = true

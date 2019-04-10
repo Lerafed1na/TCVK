@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ManagerDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
 
     @IBOutlet var tableView: UITableView!
@@ -21,9 +21,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
       self.tableView.dataSource = self
-      
-
-        CommunicationManager.shared.delegate = self 
 
         //update function for current theme with User Defaults:
         if let selectedColor = UserDefaults.standard.colorForKey(key: "selectedColor") {
@@ -66,10 +63,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     
-    func globalUpdate() {
-        print("global")
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
     }

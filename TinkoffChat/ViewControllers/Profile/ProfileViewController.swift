@@ -22,8 +22,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var iconOfSetProfilePhotoButton: UIImageView!
 
     var profile: Profile!
-    let dataManager = CoreDataManager()
+    //private let presentationAssembly: IPresentationAssembly
+    let dataManager = StorageManager()
     let imagePicker = UIImagePickerController()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -363,8 +365,8 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
 
 }
 
-protocol DataManagerProtocol {
-
-    func fetchProfileData(handler: @escaping (Profile?) -> Void)
-    func saveProfileData(profile: Profile, handler: @escaping (Bool) -> Void)
-}
+//protocol DataManagerProtocol {
+//
+//    func fetchProfileData(handler: @escaping (Profile?) -> Void)
+//    func saveProfileData(profile: Profile, handler: @escaping (Bool) -> Void)
+//}
