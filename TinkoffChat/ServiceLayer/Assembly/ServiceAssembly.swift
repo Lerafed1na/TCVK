@@ -2,30 +2,25 @@
 //  ServiceAssembly.swift
 //  TinkoffChat
 //
-//  Created by Valeriia Korenevich on 07/04/2019.
+//  Created by Valeriia Korenevich on 12/04/2019.
 //  Copyright © 2019 Valeriia Korenevich. All rights reserved.
 //
 
 import Foundation
 
 protocol IServiceAssembly {
-    var frcMessageService: IMessageFetchRequester { get }
-    var frcUserService: IUserFetchRequester { get }
-    var frcConversationService: IConversationFetchRequester { get }
-    var communicationService: ICommunicatorDelegate { get }
+   // var profileDataManager: IUserCoreDataManager { get }
+    var communicatorService: CommunicatorDelegate { get }
 }
 
-class ServiceAssembly: IServiceAssembly {
+class ServiceAssembly: NSObject, IServiceAssembly {
     
-    private let coreAssembly: ICoreAssembly
+    var coreAssembly: ICoreAssembly
     
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly
     }
+    //lazy var profileDataManager: IUserCoreDataManager = UserCoreDataService(coreDataStack: coreAssembly.coreDataStack)
+    var communicatorService: CommunicatorDelegate = CommunicationService.shared
     
-    lazy var frcMessageService: IMessageFetchRequester = MessageFetchRequester()
-    lazy var frcUserService: IUserFetchRequester = UserFetchRequester()
-    lazy var frcConversationService: IConversationFetchRequester = ConversationFetchRequester()
-    lazy var communicationService: ICommunicatorDelegate = CommunicationService(storageManager: coreAssembly.storageManager,
-                                                                                communicator: coreAssembly.multipeerCommunicator)
 }

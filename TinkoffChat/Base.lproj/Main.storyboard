@@ -125,11 +125,77 @@
                         <outlet property="saveButton" destination="iM8-dw-BF4" id="k17-fP-oJf"/>
                         <outlet property="setProfilePhotoButton" destination="qyq-nM-mMG" id="d2H-a8-kz5"/>
                         <outlet property="userNameTextField" destination="hvC-lB-0e9" id="Yzh-3S-202"/>
+                        <segue destination="WVn-tE-W8u" kind="presentation" identifier="imageMenu" id="Icv-8J-LMG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-446.25" y="130.98591549295776"/>
+        </scene>
+        <!--Down Load Image View Controller-->
+        <scene sceneID="3Y7-gk-PIK">
+            <objects>
+                <collectionViewController id="pdc-cc-WTY" customClass="DownLoadImageViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="C7V-cr-4mP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ot9-B5-Wfa">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Qpr-2C-d58">
+                            <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="0.32634671129999998" green="1" blue="0.96472833950000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </activityIndicatorView>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="Jms-ZY-Y1k" customClass="CollectionViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="720-NR-DgS">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="720-NR-DgS" secondAttribute="bottom" id="00F-Bn-joj"/>
+                                    <constraint firstAttribute="trailing" secondItem="720-NR-DgS" secondAttribute="trailing" id="1dS-wd-gV2"/>
+                                    <constraint firstItem="720-NR-DgS" firstAttribute="leading" secondItem="Jms-ZY-Y1k" secondAttribute="leading" id="YiC-ta-o1G"/>
+                                    <constraint firstItem="720-NR-DgS" firstAttribute="top" secondItem="Jms-ZY-Y1k" secondAttribute="top" id="fm2-OL-Hxc"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="photo" destination="720-NR-DgS" id="wAm-Ni-aUj"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="pdc-cc-WTY" id="7IE-1Y-8lN"/>
+                            <outlet property="delegate" destination="pdc-cc-WTY" id="vAe-ms-kyA"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="Aq9-A8-qBj">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="back" id="g1M-m1-ubp">
+                            <connections>
+                                <action selector="cancelBtnWasPressed:" destination="pdc-cc-WTY" id="8hz-vO-AhY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="spinner" destination="Qpr-2C-d58" id="BrO-at-80h"/>
+                        <segue destination="s1e-9h-gS1" kind="unwind" identifier="unwindProfile" unwindAction="unwindToProfileWithSegue:" id="JJ4-I4-MjI"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q4v-G5-dEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="s1e-9h-gS1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1333.125" y="130.98591549295776"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wkd-gh-htz">
@@ -334,7 +400,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingCell" id="f8Q-hf-7Fx" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingCell" id="f8Q-hf-7Fx" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8Q-hf-7Fx" id="aqY-zx-vI3">
@@ -372,7 +438,7 @@
                                             <outlet property="messageView" destination="xqn-aM-a0d" id="q3t-fZ-Mx0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomingCell" id="iVK-68-Qkr" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomingCell" id="iVK-68-Qkr" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iVK-68-Qkr" id="4hO-Hb-SaN">
@@ -490,6 +556,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uln-4c-nle" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1421" y="133"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZLT-y1-TRf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WVn-tE-W8u" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wia-0S-oCy">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pdc-cc-WTY" kind="relationship" relationship="rootViewController" id="Ce0-tA-kqt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OMt-2x-EBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="335.625" y="130.98591549295776"/>
         </scene>
     </scenes>
     <resources>
