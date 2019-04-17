@@ -325,21 +325,12 @@
 				FB1FE753225FCB8000198EEF /* CoreLayer */,
 				FB1FE754225FCB8C00198EEF /* ServiceLayer */,
 				FB1FE755225FCB9400198EEF /* PresentationLayer */,
-				FBFDC66A224A95570079879B /* CoreData */,
-				FB91545A223E8B97001350DA /* Multipeer */,
 				FB8A8A44220C3B0E00B67C31 /* Assets.xcassets */,
 				FBED87DD22171CCE001F18D6 /* Media.xcassets */,
 				FB8A8A46220C3B0E00B67C31 /* LaunchScreen.storyboard */,
 				FB8A8A49220C3B0E00B67C31 /* Info.plist */,
 			);
 			path = TinkoffChat;
-			sourceTree = "<group>";
-		};
-		FB91545A223E8B97001350DA /* Multipeer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Multipeer;
 			sourceTree = "<group>";
 		};
 		FBF56AEB2265CCDC0038A80A /* DownloadImage */ = {
@@ -367,13 +358,6 @@
 				FB1FE747225FC66200198EEF /* Controller */,
 			);
 			path = Conversation;
-			sourceTree = "<group>";
-		};
-		FBFDC66A224A95570079879B /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
