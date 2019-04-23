@@ -46,4 +46,3 @@ class ConversationModel: ConversationsCellConfiguration {
     }
 
 }
-

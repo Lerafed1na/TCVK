@@ -16,11 +16,11 @@ protocol FetchedResultsControllerProtocol: NSFetchedResultsControllerDelegate {
 
 class FRCDelegate: NSObject, FetchedResultsControllerProtocol {
     private var tableView: UITableView?
-    
+
     func reinit(tableView: UITableView) {
         self.tableView = tableView
     }
-    
+
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         DispatchQueue.main.async {
             self.tableView?.beginUpdates()

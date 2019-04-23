@@ -15,7 +15,7 @@ protocol IFRMessageManager {
 
 class FRMessageManager: IFRMessageManager {
     static let shared = FRMessageManager()
-    
+
     func fetchMessagesBy(conversationID: String) -> NSFetchRequest<Message> {
         let request: NSFetchRequest<Message> = Message.fetchRequest()
         request.predicate = NSPredicate(format: "conversationId == %@",

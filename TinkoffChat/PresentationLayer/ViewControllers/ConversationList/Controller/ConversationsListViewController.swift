@@ -11,13 +11,15 @@ import MultipeerConnectivity
 import CoreData
 
 protocol ConversationsListDelegate: class {
-    
+
     func reloadData()
     func sortConverstionData()
 }
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ManagerDelegate{
-  
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ManagerDelegate {
+    func updateConversationInfo() {
+        print("ola")
+    }
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var userProfileButton: UIButton!
@@ -49,12 +51,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         // Add to userProfileButton an Anchor constraint
         userProfileButton.widthAnchor.constraint(equalToConstant: 35.0).isActive = true
         userProfileButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
-      
-      
+
       initialConversationFetching()
-      
+
     }
-  
+
     func initialConversationFetching() {
         let request = FRConversationManager.shared.fetchConversations()
         request.fetchBatchSize = 20
@@ -68,10 +69,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         } catch let error {
           print("fetchConversations() method:   \(error)")
         }
-    }
-    
-    func globalUpdate() {
-        print("global")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,14 +87,14 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Show Chat" {
           if let indexPath = tableView.indexPathForSelectedRow {
-            let destinationController = segue.destination as!
-            ConversationViewController
-            
+            guard let destinationController = segue.destination as?
+                ConversationViewController else { return }
+
             let conversation = fetchResultsController.object(at: indexPath)
             print(conversation)
             print(destinationController)
             destinationController.conversation = conversation
-          
+
           }
             // MARK: - Themes: segue to ThemesViewController:
         } else if segue.identifier == "Show Themes" {
@@ -110,35 +107,34 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
 
         }
     }
-  
-  
+
   func numberOfSections(in tableView: UITableView) -> Int {
     if let sections = fetchResultsController?.sections {
         return sections.count
     }
     return 0
   }
-  
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return fetchResultsController.fetchedObjects?.count ?? 0
   }
-  
+
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     guard let sections = fetchResultsController?.sections else {
         return nil
     }
     return sections[section].indexTitle == "1" ? "Online" : "History"
   }
-  
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath as IndexPath, animated: true)
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell",
                                                    for: indexPath) as? ConversetionTableViewCell else { return UITableViewCell() }
-    
+
     let conversation = fetchResultsController.object(at: indexPath)
     cell.name = conversation.user?.name
     cell.date = conversation.date
@@ -162,20 +158,18 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     } else {
         cell.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     }
-    
 
     return cell
   }
-  
+
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 76
   }
-  
+
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 50.0
   }
 }
-
 
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

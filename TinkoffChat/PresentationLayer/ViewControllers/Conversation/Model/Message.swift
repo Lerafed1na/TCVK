@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension Message {
-    
+
     static func insertNewMessage(in context: NSManagedObjectContext) -> Message {
         guard let message = NSEntityDescription.insertNewObject(forEntityName: "Message",
                                                                 into: context) as? Message else {
@@ -18,7 +18,7 @@ extension Message {
         }
         return message
     }
-    
+
     static func findMessagesBy(conversationId: String, in context: NSManagedObjectContext) -> [Message]? {
         let request = FRMessageManager.shared.fetchMessagesBy(conversationID: conversationId)
         do {

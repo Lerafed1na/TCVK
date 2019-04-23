@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
     @IBOutlet weak var placeholderProfilePhoto: UIImageView!
     @IBOutlet weak var setProfilePhotoButton: UIButton!
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: EditButton!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var infoTextField: UITextView!
@@ -24,15 +24,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     var profile: Profile!
     var profileDataManager = UserCoreDataService()
     let imagePicker = UIImagePickerController()
-    
-//    init(profileDataManager: IUserCoreDataManager) {
-//        self.profileDataManager = profileDataManager
-//    }
-    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // setup controller UI
@@ -46,7 +38,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         // read and set stored profile data
         loadProfileData()
     }
-    
+
     @IBAction func unwindToProfile (segue: UIStoryboardSegue) {
         print("Unwind segue")
     }
@@ -139,7 +131,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         editButton.layer.cornerRadius = editButton.bounds.height / 5
         editButton.layer.borderWidth = 0.5
         editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        editButton.backgroundColor = .white
+        editButton.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         editButton.clipsToBounds = true
     }
 
@@ -179,6 +171,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
         saveButton.isHidden = true
         saveButton.setTitleColor(UIColor.gray, for: .normal)
+        saveButton.changeColor(state: "ON")
 
         editButton.isHidden = false
 
@@ -266,9 +259,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
 
     func savesButton() {
         if profile.name != userNameTextField.text || profile.info != infoTextField.text || profile.image != placeholderProfilePhoto.image {
+            if !saveButton.isEnabled {
+                saveButton.changeColor(state: "OFF")
+                saveButton.buttonAnimationOne()
+            }
             saveButton.isEnabled = true
-            saveButton.setTitleColor(UIColor.blue,
-                                     for: .normal)
+
         } else {
             saveButton.setTitleColor(UIColor.gray,
                                      for: .normal)
@@ -282,10 +278,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
 
     @IBAction func editButtonWasPressed(_ sender: UIButton) {
-
         enableInteraction()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "imageMenu" {
             print("segue to image menu")
@@ -315,7 +310,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                                                style: .default) { [weak self] _ in
                                                 self?.showPhotoLibraryImagePickerController()
         }
-        
+
         let downloadButton = UIAlertAction(title: "Download", style: .default) { [weak self] (_) in
             self?.performSegue(withIdentifier: "imageMenu", sender: nil)
         }
@@ -387,4 +382,3 @@ extension ProfileViewController: UINavigationControllerDelegate, UIImagePickerCo
     }
 
 }
-

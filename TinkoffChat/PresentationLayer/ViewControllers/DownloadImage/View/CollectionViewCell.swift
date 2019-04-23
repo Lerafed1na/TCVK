@@ -10,7 +10,7 @@ import Foundation
 
 class CollectionViewCell: UICollectionViewCell {
     @IBOutlet var photo: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = UIImage(named: "placeholder-user.png")

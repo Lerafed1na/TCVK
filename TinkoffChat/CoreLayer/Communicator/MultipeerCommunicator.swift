@@ -9,13 +9,11 @@
 import Foundation
 import MultipeerConnectivity
 
-
 protocol Communicator {
     func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> Void)?)
     var delegate: CommunicatorDelegate? {get set}
     var online: Bool {get set}
 }
-
 
 class MultipeerCommunicator: NSObject, Communicator {
 
@@ -27,10 +25,10 @@ class MultipeerCommunicator: NSObject, Communicator {
     var online: Bool = false
     let serviceType = "tinkoff-chat"
     let myPeerID = MCPeerID(displayName: UIDevice.current.name)
-  
+
     // Dictionary to save active sessions:
     var activeSessions: [String: MCSession] = [:]
-  
+
     //Create a lazy initialized session property to create a MCSession on demand and implement the MCSessionDelegate protocol:
     lazy var session: MCSession = {
         let session = MCSession(peer: myPeerID,
@@ -140,29 +138,27 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
 
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
 
-
     //send invite to ID
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
       guard let recievedInfo = info else { return } // Safely getting recieved info
       guard let blabberName = recievedInfo["userName"] else { return }  // Safely getting blabber name from dictionary
-      
+
       let session: MCSession = manageSession(with: peerID)
       browser.invitePeer(peerID, to: session, withContext: nil, timeout: 10)
       delegate?.didFoundUser(userID: peerID.displayName, userName: blabberName)
     }
-  
+
   func manageSession(with peerID: MCPeerID) -> MCSession {
     // Checking if user is already on the list:
     guard activeSessions[peerID.displayName] == nil else { return activeSessions[peerID.displayName]! }
     // Create session for user:
     let session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
     session.delegate = self
-    
+
     // Associate user with session:
     activeSessions[peerID.displayName] = session
     return activeSessions[peerID.displayName]!
   }
-
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         delegate?.didLostUser(userID: peerID.displayName)

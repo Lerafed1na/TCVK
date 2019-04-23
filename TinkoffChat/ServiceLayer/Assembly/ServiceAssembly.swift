@@ -14,13 +14,13 @@ protocol IServiceAssembly {
 }
 
 class ServiceAssembly: NSObject, IServiceAssembly {
-    
+
     var coreAssembly: ICoreAssembly
-    
+
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly
     }
     //lazy var profileDataManager: IUserCoreDataManager = UserCoreDataService(coreDataStack: coreAssembly.coreDataStack)
     var communicatorService: CommunicatorDelegate = CommunicationService.shared
-    
+
 }

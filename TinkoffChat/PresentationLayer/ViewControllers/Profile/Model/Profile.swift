@@ -18,17 +18,17 @@ class Profile: NSObject, ProfileProtocol {
     var name: String?
     var info: String?
     var image: UIImage?
-    
+
 //    var isNameChanged: Bool = false
 //    var isInfoChanged: Bool = false
 //    var isImageChanged: Bool = false
-    
+
     init(name: String?, info: String?, image: UIImage?) {
         self.name = name
         self.info = info
         self.image = image
     }
-    
+
     override init() {
     }
 }

@@ -9,37 +9,39 @@
 import UIKit
 import MultipeerConnectivity
 
-protocol ManagerDelegate {
+protocol ManagerDelegate: class {
     // Manager delegation functions:
-    func globalUpdate()
+    //func globalUpdate()
+    func updateConversationInfo()
 }
 
 protocol CommunicatorDelegate: class {
     //discovering
     func didFoundUser(userID: String, userName: String?)
     func didLostUser(userID: String)
-    
+
     //errors
     func failedToStartBrowsingForUsers(error: Error)
     func failedToStartAdvertising(error: Error)
-    
+
     //messages
     func didRecieveMessage(text: String, fromUser: String, toUser: String)
 }
 
 class CommunicationService: CommunicatorDelegate {
-    
+
     static let shared = CommunicationService()
     var multipeerCommunicator: MultipeerCommunicator!
-    var delegate: ManagerDelegate!
+    weak var delegate: ManagerDelegate!
     //var conversations: [String: [ConversationModel]] = [:]
-    
+
     private init() {
         self.multipeerCommunicator = MultipeerCommunicator()
         self.multipeerCommunicator.delegate = self
     }
-    
+
     func didFoundUser(userID: String, userName: String?) {
+
         print("User found")
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
@@ -53,8 +55,11 @@ class CommunicationService: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext,
                                              completion: nil)
         }
+        DispatchQueue.main.async {
+            self.delegate.updateConversationInfo()
+        }
     }
-    
+
     func didLostUser(userID: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
@@ -62,8 +67,11 @@ class CommunicationService: CommunicatorDelegate {
             conversation.isOnline = false
             CoreDataStack.shared.performSave(context: saveContext, completion: nil)
         }
+        DispatchQueue.main.async {
+            self.delegate.updateConversationInfo()
+        }
     }
-    
+
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
         let saveContext = CoreDataStack.shared.saveContext
         saveContext.perform {
@@ -92,7 +100,7 @@ class CommunicationService: CommunicatorDelegate {
             CoreDataStack.shared.performSave(context: saveContext, completion: nil)
         }
     }
-    
+
     func failedToStartBrowsingForUsers(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,
@@ -103,7 +111,7 @@ class CommunicationService: CommunicatorDelegate {
                                 animated: true,
                                 completion: nil)
     }
-    
+
     func failedToStartAdvertising(error: Error) {
         let alertController = UIAlertController(title: "Error",
                                                 message: error.localizedDescription,

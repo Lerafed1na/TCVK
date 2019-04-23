@@ -14,6 +14,6 @@ struct ImageJson: Codable {
 }
 
 struct ImageInfo: Codable {
-    let webformatURL:String
+    let webformatURL: String
     let previewURL: String
 }

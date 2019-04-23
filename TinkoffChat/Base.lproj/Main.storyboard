@@ -73,7 +73,7 @@
                                 <rect key="frame" x="141.5" y="405.5" width="37" height="37"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM8-dw-BF4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM8-dw-BF4" customClass="EditButton" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="16" y="498" width="288" height="50"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
@@ -400,7 +400,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingCell" id="f8Q-hf-7Fx" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingCell" id="f8Q-hf-7Fx" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8Q-hf-7Fx" id="aqY-zx-vI3">
@@ -438,7 +438,7 @@
                                             <outlet property="messageView" destination="xqn-aM-a0d" id="q3t-fZ-Mx0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomingCell" id="iVK-68-Qkr" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomingCell" id="iVK-68-Qkr" customClass="ChatTableViewCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iVK-68-Qkr" id="4hO-Hb-SaN">
@@ -480,6 +480,7 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3t-7e-i4I">
                                 <rect key="frame" x="266" y="526" width="38" height="34"/>
+                                <color key="backgroundColor" red="0.78925436735153198" green="0.038451712600002838" blue="0.12109749492618259" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="send"/>
                                 <connections>
                                     <action selector="sendButtonWasPressed:" destination="6WJ-tM-HMP" eventType="touchUpInside" id="G5s-s4-6hC"/>

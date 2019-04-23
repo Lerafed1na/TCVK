@@ -15,8 +15,8 @@ protocol IUserCoreDataManager {
     func readProfileData(completion: @escaping (Profile) -> Void)
 }
 
-class UserCoreDataService: NSObject,  IUserCoreDataManager {
-    
+class UserCoreDataService: NSObject, IUserCoreDataManager {
+
     private let coreDataStack = CoreDataStack.shared
 
 //    private let coreDataStack: CoreDataStack

@@ -17,7 +17,7 @@ protocol IFRConversationManager {
 
 class FRConversationManager: IFRConversationManager {
     static let shared = FRConversationManager()
-    
+
     func fetchConversations() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         let dateSortDescriptor = NSSortDescriptor(key: "date",
@@ -28,13 +28,13 @@ class FRConversationManager: IFRConversationManager {
                                    dateSortDescriptor]
         return request
     }
-    
+
     func fetchConversationsOnline() -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-    
+
     func fetchConversationBy(id: String) -> NSFetchRequest<Conversation> {
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "conversationId == %@",

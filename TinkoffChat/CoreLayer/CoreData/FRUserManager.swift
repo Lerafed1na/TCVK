@@ -21,7 +21,7 @@ class FRUserManager: IFRUserManager {
         request.predicate = NSPredicate(format: "isOnline == YES")
         return request
     }
-    
+
     func fetchUserByID(id: String) -> NSFetchRequest<User> {
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.predicate = NSPredicate(format: "userId == %@",
