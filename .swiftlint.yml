@@ -1,6 +1,11 @@
 line_length:
-- 200 # warning 
+- 220 # warning 
+- 300 # error
+
+type_body_length:
+- 220 # warning
 - 300 # error
 
 disabled_rules:
-- identifier_name 
+- identifier_name
+- syntactic_sugar 
